@@ -46,7 +46,8 @@ tailwind.config = {
 </script>
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family: 'Nunito', system-ui, sans-serif; }
+  body { font-family: 'Nunito', system-ui, sans-serif; overflow-x: hidden; padding-bottom: 76px; }
+  @media (min-width: 1024px) { body { padding-bottom: 0; } }
   .gradient-text { background: linear-gradient(90deg, #04DA8D 0%, #0085FF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
   .warm-gradient-text { background: linear-gradient(135deg, #FF9F43 0%, #FF6B6B 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
   .scribble path { stroke: #04DA8D; stroke-width: 5; stroke-linecap: round; fill: none; filter: drop-shadow(0 1px 0 rgba(4,218,141,0.25)); }
@@ -130,8 +131,8 @@ tailwind.config = {
 <!-- ====================================================================== -->
 <!-- BRAINSTORM TOGGLE                                                          -->
 <!-- ====================================================================== -->
-<div class="fixed top-3 right-3 z-[60] flex items-center gap-2">
-  <button id="notes-toggle" class="rounded-full bg-yellow-300 hover:bg-yellow-400 px-4 py-2 text-xs font-extrabold text-yellow-900 shadow-lg">🧠 Toggle brainstorm notes</button>
+<div class="fixed lg:top-3 lg:right-3 bottom-20 lg:bottom-auto right-3 z-[60] flex items-center gap-2">
+  <button id="notes-toggle" class="rounded-full bg-yellow-300 hover:bg-yellow-400 px-3 lg:px-4 py-2 text-[11px] lg:text-xs font-extrabold text-yellow-900 shadow-lg">🧠 <span class="hidden lg:inline">Toggle brainstorm notes</span><span class="lg:hidden">Notes</span></button>
 </div>
 <script>
   document.getElementById('notes-toggle').addEventListener('click', () => document.body.classList.toggle('show-notes'));
@@ -307,9 +308,9 @@ tailwind.config = {
       </div>
       <div class="relative">
         <div class="aspect-[4/5] rounded-3xl overflow-hidden bg-brand-offWhite placeholder">[Hero photo · empty home / dog alone · sourced or commissioned]</div>
-        <div class="absolute -bottom-6 -right-6 bg-white rounded-2xl p-5 shadow-cardHover max-w-[240px]">
-          <div class="text-3xl font-black warm-gradient-text big-num">2,080</div>
-          <div class="text-xs font-bold text-slate-700 mt-1">hours alone, per year, for the average working-owner dog.</div>
+        <div class="absolute -bottom-4 -right-2 sm:-bottom-6 sm:-right-6 bg-white rounded-2xl p-4 sm:p-5 shadow-cardHover max-w-[200px] sm:max-w-[240px]">
+          <div class="text-2xl sm:text-3xl font-black warm-gradient-text big-num">2,080</div>
+          <div class="text-[11px] sm:text-xs font-bold text-slate-700 mt-1 leading-tight">hours alone, per year, for the average working-owner dog.</div>
           <div class="text-[10px] text-slate-400 mt-1">8h × 5d × 52w</div>
         </div>
       </div>
@@ -753,7 +754,8 @@ tailwind.config = {
       <p class="mt-4 text-slate-600">Honest comparison. Specs, fees, and capabilities pulled from each company's public documentation as of May 2026.</p>
     </div>
 
-    <div class="mt-12 overflow-x-auto rounded-3xl bg-white shadow-cardHover border border-slate-200">
+    <!-- Desktop / tablet · full table -->
+    <div class="hidden md:block mt-12 overflow-x-auto rounded-3xl bg-white shadow-cardHover border border-slate-200">
       <table class="cmp w-full min-w-[720px]">
         <thead>
           <tr class="bg-slate-50">
@@ -777,6 +779,84 @@ tailwind.config = {
         </tbody>
       </table>
     </div>
+
+    <!-- Mobile · stacked feature cards (one per row) -->
+    <div class="md:hidden mt-10 space-y-3">
+      <!-- Reusable cell helper using grid -->
+      <div class="rounded-2xl bg-white border border-slate-200 p-4 shadow-card">
+        <div class="font-extrabold text-sm text-brand-dark">Follows your pet room to room</div>
+        <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+          <div class="bg-brand-green/10 rounded-lg p-2"><div class="font-extrabold text-brand-green text-[10px]">PawMe</div><div class="text-brand-green text-xl font-black mt-1">✓</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Furbo</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Petcube</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Loona</div><div class="text-brand-orange text-[10px] font-bold mt-1.5">Partial</div></div>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-white border border-slate-200 p-4 shadow-card">
+        <div class="font-extrabold text-sm text-brand-dark">Behavioral health alerts (anxiety, gait, sleep)</div>
+        <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+          <div class="bg-brand-green/10 rounded-lg p-2"><div class="font-extrabold text-brand-green text-[10px]">PawMe</div><div class="text-brand-green text-xl font-black mt-1">✓</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Furbo</div><div class="text-brand-orange text-[10px] font-bold mt-1.5">Bark only</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Petcube</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Loona</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-white border border-slate-200 p-4 shadow-card">
+        <div class="font-extrabold text-sm text-brand-dark">Two-way audio with your real voice</div>
+        <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+          <div class="bg-brand-green/10 rounded-lg p-2"><div class="font-extrabold text-brand-green text-[10px]">PawMe</div><div class="text-brand-green text-xl font-black mt-1">✓</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Furbo</div><div class="text-brand-green text-xl font-black mt-1">✓</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Petcube</div><div class="text-brand-green text-xl font-black mt-1">✓</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Loona</div><div class="text-brand-orange text-[10px] font-bold mt-1.5">Pre-rec</div></div>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-white border border-slate-200 p-4 shadow-card">
+        <div class="font-extrabold text-sm text-brand-dark">On-device AI · no cloud</div>
+        <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+          <div class="bg-brand-green/10 rounded-lg p-2"><div class="font-extrabold text-brand-green text-[10px]">PawMe</div><div class="text-brand-green text-xl font-black mt-1">✓</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Furbo</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Petcube</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Loona</div><div class="text-brand-orange text-[10px] font-bold mt-1.5">Hybrid</div></div>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-white border border-slate-200 p-4 shadow-card">
+        <div class="font-extrabold text-sm text-brand-dark">Vet-board reviewed</div>
+        <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+          <div class="bg-brand-green/10 rounded-lg p-2"><div class="font-extrabold text-brand-green text-[10px]">PawMe</div><div class="text-brand-green text-xl font-black mt-1">✓</div><div class="text-[9px] text-slate-500">42 DVMs</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Furbo</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Petcube</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Loona</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-white border border-slate-200 p-4 shadow-card">
+        <div class="font-extrabold text-sm text-brand-dark">Open-source firmware</div>
+        <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+          <div class="bg-brand-green/10 rounded-lg p-2"><div class="font-extrabold text-brand-green text-[10px]">PawMe</div><div class="text-brand-green text-xl font-black mt-1">✓</div><div class="text-[9px] text-slate-500">MIT</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Furbo</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Petcube</div><div class="text-brand-red text-xl font-black mt-1">✗</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Loona</div><div class="text-brand-orange text-[10px] font-bold mt-1.5">SDK only</div></div>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-yellow-50 border-2 border-yellow-300 p-4 shadow-card">
+        <div class="font-extrabold text-sm text-brand-dark">Monthly subscription required for AI features</div>
+        <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+          <div class="bg-brand-green/15 rounded-lg p-2"><div class="font-extrabold text-brand-green text-[10px]">PawMe</div><div class="text-brand-green text-xl font-black mt-1">$0</div><div class="text-[9px] text-brand-green font-extrabold">FOREVER</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Furbo</div><div class="text-brand-red text-sm font-black mt-1.5">$7/mo</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Petcube</div><div class="text-brand-red text-sm font-black mt-1.5">$13/mo</div></div>
+          <div class="bg-slate-50 rounded-lg p-2"><div class="font-bold text-slate-500 text-[10px]">Loona</div><div class="text-brand-orange text-sm font-black mt-1.5">$3/mo</div></div>
+        </div>
+      </div>
+      <div class="rounded-2xl bg-brand-deeper text-white p-4 shadow-card">
+        <div class="font-extrabold text-sm">Lifetime cost over 5 years (device + 5y subscription)</div>
+        <div class="mt-3 grid grid-cols-4 gap-2 text-xs text-center">
+          <div class="bg-brand-green/20 rounded-lg p-2"><div class="font-extrabold text-brand-green text-[10px]">PawMe</div><div class="text-brand-green text-base font-black mt-1">$199</div></div>
+          <div class="bg-white/5 rounded-lg p-2"><div class="font-bold text-white/60 text-[10px]">Furbo</div><div class="text-brand-red text-base font-black mt-1">$630</div></div>
+          <div class="bg-white/5 rounded-lg p-2"><div class="font-bold text-white/60 text-[10px]">Petcube</div><div class="text-brand-red text-base font-black mt-1">$979</div></div>
+          <div class="bg-white/5 rounded-lg p-2"><div class="font-bold text-white/60 text-[10px]">Loona</div><div class="text-brand-red text-base font-black mt-1">$629</div></div>
+        </div>
+      </div>
+    </div>
+
     <p class="mt-4 text-center text-xs text-slate-400">Comparison data as of May 2026, sourced from each manufacturer's website + verified Kickstarter / Indiegogo campaign disclosures.</p>
   </div>
 </section>
