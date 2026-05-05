@@ -21,12 +21,18 @@ function newEvent(): Event {
   return { ...e, id: Math.random().toString(36).slice(2) };
 }
 
+// Deterministic initial state — same on server + client to avoid hydration mismatch.
+const INITIAL_IDS = ["ev1", "ev2", "ev3"];
+const initialEvents = (): Event[] => INITIAL_IDS.map((id, i) => ({ ...POOL[i % POOL.length], id }));
+
 export default function LiveFeed() {
-  const [items, setItems] = useState<Event[]>(() => [newEvent(), newEvent(), newEvent()]);
+  const [items, setItems] = useState<Event[]>(initialEvents);
   const [time, setTime] = useState<string>("");
+  const [hydrated, setHydrated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setHydrated(true);
     setTime(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
     const tick = setInterval(() => {
       setTime(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
