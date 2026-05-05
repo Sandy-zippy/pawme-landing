@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PawMe — Kickstarter Campaign Page (Brainstorm Mockup)</title>
+<meta name="description" content="The first AI companion robot built to actually do something when your dog is alone. Behavior-trained, vet-reviewed, $0 monthly fees ever for backers. Live on Kickstarter June 9." />
+<link rel="icon" type="image/png" href="assets/images/logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          green: "#04DA8D", neon: "#00FF94", blue: "#0085FF",
+          dark: "#0E1E2E", darkAlt: "#1A2F44", deeper: "#06121C",
+          cream: "#FFF8F0", offWhite: "#F8FAFC",
+          red: "#FF6B6B", orange: "#FF9F43", purple: "#8E54E9",
+          ks: "#05CE78"
+        }
+      },
+      fontFamily: {
+        heading: ["Nunito", "system-ui"],
+        body: ["Nunito", "system-ui"],
+        mono: ["JetBrains Mono", "monospace"]
+      },
+      backgroundImage: {
+        "primary-gradient": "linear-gradient(90deg, #04DA8D 0%, #0085FF 100%)",
+        "warm-gradient": "linear-gradient(135deg, #FF9F43 0%, #FF6B6B 100%)",
+        "dark-gradient": "linear-gradient(135deg, #06121C 0%, #1A2F44 100%)",
+        "purple-gradient": "linear-gradient(135deg, #8E54E9 0%, #4F46E5 100%)",
+      },
+      boxShadow: {
+        card: "0 4px 24px rgba(0,0,0,0.06)",
+        cardHover: "0 12px 40px rgba(0,0,0,0.16)",
+        button: "0 10px 40px rgba(4,218,141,0.35)",
+        deepDark: "0 30px 80px rgba(0,0,0,0.5)",
+      }
+    }
+  }
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', system-ui, sans-serif; }
+  .gradient-text { background: linear-gradient(90deg, #04DA8D 0%, #0085FF 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .warm-gradient-text { background: linear-gradient(135deg, #FF9F43 0%, #FF6B6B 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .scribble path { stroke: #04DA8D; stroke-width: 5; stroke-linecap: round; fill: none; filter: drop-shadow(0 1px 0 rgba(4,218,141,0.25)); }
+
+  /* Brainstorm note system */
+  .bm-note { display: none; }
+  body.show-notes .bm-note { display: block; }
+  .bm-note { background: linear-gradient(135deg, #FEF9C3 0%, #FDE68A 100%); border-left: 4px solid #EAB308; padding: 16px 20px; font-size: 13px; color: #713F12; border-radius: 8px; margin: 24px auto; max-width: 1100px; box-shadow: 0 4px 12px rgba(234,179,8,0.15); }
+  .bm-note strong { color: #422006; }
+
+  /* Smooth photo treatments */
+  .photo-grade-warm { filter: saturate(1.05) contrast(1.02); }
+  .photo-grade-dark { filter: saturate(0.85) brightness(0.78) contrast(1.08); }
+
+  /* Polaroid */
+  .polaroid { background: white; padding: 10px 10px 36px; box-shadow: 0 18px 40px rgba(0,0,0,0.18); border-radius: 4px; transform: rotate(var(--tilt, -2deg)); transition: transform .4s ease; }
+  .polaroid:hover { transform: rotate(0deg) scale(1.02); }
+
+  /* Eyebrow tag */
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.22em; }
+
+  /* Animated counter ring */
+  @keyframes pulse-ring { 0%,100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.06); opacity: 1; } }
+  .pulse-dot { animation: pulse-ring 1.6s ease-in-out infinite; }
+
+  /* Shimmer placeholder */
+  .placeholder { background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%); background-size: 200% 200%; animation: shimmer 4s ease-in-out infinite; display: flex; align-items: center; justify-content: center; color: #64748b; font-weight: 700; text-align: center; padding: 24px; font-size: 13px; }
+  .placeholder-dark { background: linear-gradient(135deg, #1A2F44 0%, #06121C 50%, #1A2F44 100%); background-size: 200% 200%; animation: shimmer 4s ease-in-out infinite; color: rgba(255,255,255,0.4); }
+  @keyframes shimmer { 0%,100% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } }
+
+  /* Hero overlay gradient */
+  .hero-overlay { background: linear-gradient(180deg, rgba(6,18,28,0.35) 0%, rgba(6,18,28,0.55) 60%, rgba(6,18,28,0.92) 100%); }
+
+  /* Sub-section divider */
+  .divider-dot { display: inline-block; width: 6px; height: 6px; border-radius: 999px; background: #04DA8D; margin: 0 12px; vertical-align: middle; }
+
+  /* Comparison table */
+  .cmp td, .cmp th { padding: 14px 16px; border-bottom: 1px solid #E2E8F0; text-align: center; }
+  .cmp th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: #475569; font-weight: 800; }
+  .cmp td.row-label { text-align: left; font-weight: 700; color: #0E1E2E; }
+  .cmp tr:hover td { background: #F8FAFC; }
+  .cmp .col-pawme { background: linear-gradient(180deg, rgba(4,218,141,0.04) 0%, rgba(0,133,255,0.04) 100%); }
+  .yes { color: #04DA8D; font-size: 22px; font-weight: 900; }
+  .no { color: #FF6B6B; font-size: 22px; font-weight: 900; }
+  .partial { color: #FF9F43; font-size: 14px; font-weight: 800; }
+
+  /* Tier card */
+  .tier-card { transition: transform .3s ease, box-shadow .3s ease; }
+  .tier-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.18); }
+  .tier-claim-bar { height: 6px; background: rgba(255,255,255,0.12); border-radius: 999px; overflow: hidden; }
+  .tier-claim-bar > div { height: 100%; background: linear-gradient(90deg, #04DA8D, #00FF94); }
+
+  /* Roadmap path */
+  .roadmap-path { background: repeating-linear-gradient(90deg, #04DA8D 0 8px, transparent 8px 16px); height: 4px; }
+
+  /* Subtle paw mark background */
+  .paw-bg { background-image: radial-gradient(circle at 20% 20%, rgba(4,218,141,0.04) 0%, transparent 30%), radial-gradient(circle at 80% 70%, rgba(0,133,255,0.04) 0%, transparent 30%); }
+
+  /* Number reveal */
+  .big-num { font-feature-settings: "tnum"; line-height: 0.9; letter-spacing: -0.04em; }
+
+  /* Scroll cue */
+  @keyframes bounce-soft { 0%,100% { transform: translateY(0); opacity: .8; } 50% { transform: translateY(8px); opacity: 1; } }
+  .scroll-cue { animation: bounce-soft 2s ease-in-out infinite; }
+
+  /* FAQ */
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .faq-toggle { transform: rotate(45deg); }
+  .faq-toggle { transition: transform .3s ease; }
+
+  /* Full-bleed image with text overlay */
+  .full-bleed-photo { background-size: cover; background-position: center; }
+
+  /* Section spacer to prevent content cramping */
+  section { scroll-margin-top: 80px; }
+</style>
+</head>
+<body class="bg-white text-brand-dark">
+
+<!-- ====================================================================== -->
+<!-- BRAINSTORM TOGGLE                                                          -->
+<!-- ====================================================================== -->
+<div class="fixed top-3 right-3 z-[60] flex items-center gap-2">
+  <button id="notes-toggle" class="rounded-full bg-yellow-300 hover:bg-yellow-400 px-4 py-2 text-xs font-extrabold text-yellow-900 shadow-lg">🧠 Toggle brainstorm notes</button>
+</div>
+<script>
+  document.getElementById('notes-toggle').addEventListener('click', () => document.body.classList.toggle('show-notes'));
+</script>
+
+<!-- ====================================================================== -->
+<!-- KS CHROME · TOP NAV (mock to give team context)                            -->
+<!-- ====================================================================== -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  <div class="mx-auto max-w-7xl px-5 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3 sm:gap-5 text-sm font-bold">
+      <span class="text-brand-ks text-base">★ kickstarter</span>
+      <span class="hidden sm:inline text-slate-400">›</span>
+      <span class="hidden sm:inline text-slate-700">Technology</span>
+      <span class="hidden sm:inline text-slate-400">›</span>
+      <span class="hidden md:inline text-slate-700">Hardware</span>
+    </div>
+    <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-bold">
+      <a class="hidden sm:inline text-slate-700">Discover</a>
+      <a class="hidden sm:inline text-slate-700">Search</a>
+      <a class="rounded-full border border-brand-ks px-3 sm:px-4 py-1.5 text-brand-ks">Sign in</a>
+    </div>
+  </div>
+</header>
+
+<!-- ====================================================================== -->
+<!-- §1 · HERO — full-bleed cinematic                                            -->
+<!-- ====================================================================== -->
+<section class="relative h-[92vh] min-h-[640px] overflow-hidden bg-brand-deeper">
+  <div class="bm-note"><strong>§1 HERO ·</strong> Full-bleed cinematic. Locked hook + 4-pipe claim line + scroll cue. Hero video looped behind, dark overlay for text legibility. NO in-page pledge widget — Kickstarter provides that as platform chrome. Goal: visitor watches the video for 8 seconds and feels the promise.</div>
+
+  <!-- Background video -->
+  <video class="absolute inset-0 w-full h-full object-cover photo-grade-dark" autoplay muted loop playsinline poster="assets/images/founder-with-dog.jpg">
+    <source src="assets/video/meet-pawme.mp4" type="video/mp4">
+  </video>
+  <div class="absolute inset-0 hero-overlay"></div>
+
+  <!-- Decorative bot images -->
+  <img src="assets/images/bot-left.png" alt="" class="hidden lg:block absolute left-[-2%] bottom-[-8%] w-[28%] z-10 opacity-90 drop-shadow-2xl pulse-dot"/>
+  <img src="assets/images/bot-right.png" alt="" class="hidden lg:block absolute right-[-2%] bottom-[-12%] w-[28%] z-10 opacity-90 drop-shadow-2xl pulse-dot" style="animation-delay: 0.6s"/>
+
+  <!-- Hero content -->
+  <div class="relative z-20 h-full flex flex-col justify-center text-white">
+    <div class="mx-auto max-w-5xl px-5 text-center">
+      <span class="eyebrow bg-brand-green text-brand-deeper font-extrabold">⚡ Live on Kickstarter · 285% funded · 87 backers</span>
+      <h1 class="mt-6 font-heading font-black tracking-tight text-[40px] sm:text-[68px] lg:text-[88px] leading-[0.98]">
+        You <span class="relative inline-block">leave.<svg class="absolute left-0 right-0 -bottom-2 sm:-bottom-3 w-full h-3 sm:h-4 scribble" viewBox="0 0 200 18" preserveAspectRatio="none"><path d="M2 14C 30 4, 60 16, 100 8 S 170 4, 198 12"/></svg></span>
+        <br/>They wonder<br/>if you're coming back.
+      </h1>
+      <p class="mt-8 max-w-2xl mx-auto text-[18px] sm:text-[22px] text-white/85 leading-relaxed">
+        <span class="font-extrabold text-white">76% of dogs show separation anxiety.</span><br/>
+        PawMe stays with them — so you don't have to feel guilty.
+      </p>
+      <!-- 4-pipe claim line -->
+      <div class="mt-8 flex flex-wrap justify-center gap-2 sm:gap-3 text-[12px] sm:text-[13px] font-extrabold">
+        <span class="rounded-full bg-white/10 backdrop-blur border border-white/20 text-white px-4 py-2">Behavior-trained AI</span>
+        <span class="rounded-full bg-white/10 backdrop-blur border border-white/20 text-white px-4 py-2">Vet-reviewed alerts</span>
+        <span class="rounded-full bg-brand-green text-brand-deeper px-4 py-2 shadow-lg">$0 monthly fees · forever</span>
+        <span class="rounded-full bg-brand-purple text-white px-4 py-2 shadow-lg">Open-source firmware (MIT)</span>
+      </div>
+
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#tiers" class="rounded-full bg-primary-gradient text-white font-extrabold px-10 py-5 shadow-button text-lg">Back PawMe — from $199 →</a>
+        <a href="#how" class="text-white/80 hover:text-white text-sm font-bold">▸ See it in action</a>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-xs flex flex-col items-center gap-2 scroll-cue">
+      <span class="font-extrabold uppercase tracking-[0.3em]">scroll</span>
+      <svg width="16" height="22" viewBox="0 0 16 22" fill="none"><rect x="1" y="1" width="14" height="20" rx="7" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="7" r="1.5" fill="currentColor"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §2 · MOMENTUM STRIP — fast social proof                                     -->
+<!-- ====================================================================== -->
+<section class="bg-brand-deeper text-white py-8 border-y border-white/5">
+  <div class="bm-note"><strong>§2 MOMENTUM STRIP ·</strong> Tight conversion-fueling band. Funded badge + backer count + days-left + trust badges. Day 1 banner activates within hours of $5K goal hit. Press logos slot for week-2+ press.</div>
+  <div class="mx-auto max-w-7xl px-5 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
+    <div class="text-center sm:text-left flex items-center gap-4">
+      <div class="text-5xl font-black gradient-text big-num">285<span class="text-2xl">%</span></div>
+      <div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-brand-green font-extrabold">Funded</div>
+        <div class="text-sm text-white/70">in 47 minutes ⚡</div>
+      </div>
+    </div>
+    <div class="text-center sm:text-left flex items-center gap-4">
+      <div class="text-5xl font-black big-num">87</div>
+      <div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-brand-green font-extrabold">Backers</div>
+        <div class="text-sm text-white/70">growing every hour</div>
+      </div>
+    </div>
+    <div class="text-center sm:text-left flex items-center gap-4">
+      <div class="text-5xl font-black big-num">29</div>
+      <div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-brand-green font-extrabold">Days to go</div>
+        <div class="text-sm text-white/70">closes July 9</div>
+      </div>
+    </div>
+    <div class="text-center sm:text-left">
+      <div class="text-[11px] uppercase tracking-[0.2em] text-brand-green font-extrabold mb-2">Backed &amp; built by</div>
+      <div class="flex flex-wrap gap-2 sm:justify-start justify-center">
+        <span class="rounded-md bg-white/10 px-3 py-1.5 text-xs font-extrabold">Crowd Launches</span>
+        <span class="rounded-md bg-white/10 px-3 py-1.5 text-xs font-extrabold">TON Thrive</span>
+        <span class="rounded-md bg-brand-green/20 text-brand-green px-3 py-1.5 text-xs font-extrabold">★ Projects We Love</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §3 · MEET PAWME — Editorial reveal                                          -->
+<!-- ====================================================================== -->
+<section class="bg-brand-deeper text-white relative overflow-hidden py-24 sm:py-32">
+  <div class="bm-note"><strong>§3 MEET PAWME ·</strong> Editorial cinematic reveal. Big quote, full-width video card, photo grid. Anchor: "Not a camera. A presence." This is the "what is PawMe" moment after the emotional hook.</div>
+  <!-- Subtle grid background -->
+  <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px); background-size: 80px 80px;"></div>
+
+  <div class="relative mx-auto max-w-7xl px-5">
+    <div class="grid lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-5">
+        <span class="eyebrow bg-white/10 text-brand-green">Meet PawMe</span>
+        <h2 class="mt-6 text-[44px] sm:text-[64px] lg:text-[80px] font-black leading-[0.95] tracking-tight">
+          Not<br/>another<br/>camera.<br/>
+          <span class="gradient-text">A presence.</span>
+        </h2>
+        <p class="mt-8 text-[17px] sm:text-[20px] text-white/70 leading-relaxed max-w-md">
+          PawMe is a behavior-trained AI companion that follows your dog room to room. It sees them. It soothes them. It tells you when something's off — before it becomes something serious.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-4 text-sm">
+          <div class="rounded-xl bg-white/5 border border-white/10 px-4 py-3"><span class="text-brand-green font-black">8h</span> <span class="text-white/60">battery</span></div>
+          <div class="rounded-xl bg-white/5 border border-white/10 px-4 py-3"><span class="text-brand-green font-black">1.4kg</span> <span class="text-white/60">weight</span></div>
+          <div class="rounded-xl bg-white/5 border border-white/10 px-4 py-3"><span class="text-brand-green font-black">On-device</span> <span class="text-white/60">AI</span></div>
+          <div class="rounded-xl bg-white/5 border border-white/10 px-4 py-3"><span class="text-brand-green font-black">Privacy</span> <span class="text-white/60">first</span></div>
+        </div>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="rounded-3xl overflow-hidden bg-black/40 shadow-deepDark relative aspect-[4/3]">
+          <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+            <source src="assets/video/pawme-wakeup.mp4" type="video/mp4">
+          </video>
+          <div class="absolute top-4 left-4 bg-black/70 backdrop-blur text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full">▶ PawMe wakes itself · 12 sec</div>
+        </div>
+        <div class="mt-4 grid grid-cols-3 gap-4">
+          <div class="aspect-square rounded-2xl overflow-hidden"><img src="assets/images/founder-with-dog.jpg" alt="" class="w-full h-full object-cover photo-grade-warm"/></div>
+          <div class="aspect-square rounded-2xl overflow-hidden bg-white/5 placeholder placeholder-dark">[Hero shot · home interior]</div>
+          <div class="aspect-square rounded-2xl overflow-hidden bg-white/5 placeholder placeholder-dark">[Hero shot · detail]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §4 · THE PROBLEM — Editorial spread                                          -->
+<!-- ====================================================================== -->
+<section class="bg-white py-24 paw-bg">
+  <div class="bm-note"><strong>§4 PROBLEM ·</strong> Editorial split-screen. Big number anchor + photo. 3-stat row with sources. Manifesto tail. Cubie-style anti-incumbent line: "Pet cameras have watched for ten years. None of them ever did anything."</div>
+  <div class="mx-auto max-w-7xl px-5">
+    <!-- Split: big number + photo -->
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div>
+        <span class="eyebrow bg-brand-red/10 text-brand-red">The problem</span>
+        <h2 class="mt-6 font-heading font-black tracking-tight leading-[0.95]">
+          <span class="block text-[120px] sm:text-[180px] lg:text-[220px] big-num warm-gradient-text">76<span class="text-[60px] sm:text-[100px] lg:text-[120px]">%</span></span>
+          <span class="block mt-3 text-[24px] sm:text-[36px] lg:text-[44px] font-black text-brand-dark">of dogs show signs of separation anxiety.</span>
+        </h2>
+        <p class="mt-6 text-slate-600 max-w-md text-[17px] leading-relaxed">They pace. They whine. They develop quiet behavioral patterns when no one's watching — patterns that become health problems.</p>
+        <p class="mt-2 text-xs text-slate-400">Source: ACVB / Petlibro 2024 separation anxiety meta-study</p>
+      </div>
+      <div class="relative">
+        <div class="aspect-[4/5] rounded-3xl overflow-hidden bg-brand-offWhite placeholder">[Hero photo · empty home / dog alone · sourced or commissioned]</div>
+        <div class="absolute -bottom-6 -right-6 bg-white rounded-2xl p-5 shadow-cardHover max-w-[240px]">
+          <div class="text-3xl font-black warm-gradient-text big-num">2,080</div>
+          <div class="text-xs font-bold text-slate-700 mt-1">hours alone, per year, for the average working-owner dog.</div>
+          <div class="text-[10px] text-slate-400 mt-1">8h × 5d × 52w</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3-stat row -->
+    <div class="mt-32 grid sm:grid-cols-3 gap-6">
+      <div class="rounded-2xl bg-brand-offWhite p-8 text-center">
+        <div class="text-[60px] big-num font-black text-brand-red leading-none">1 in 3</div>
+        <div class="mt-3 text-sm font-bold text-slate-700">dogs left alone develop chronic anxiety patterns within 24 months.</div>
+        <div class="text-[10px] text-slate-400 mt-2">Source: Cornell Veterinary Behavior 2023</div>
+      </div>
+      <div class="rounded-2xl bg-brand-offWhite p-8 text-center">
+        <div class="text-[60px] big-num font-black text-brand-red leading-none">$650M</div>
+        <div class="mt-3 text-sm font-bold text-slate-700">spent yearly on pet cameras — that just sit and watch.</div>
+        <div class="text-[10px] text-slate-400 mt-2">Source: APPA Pet Tech Report 2024</div>
+      </div>
+      <div class="rounded-2xl bg-brand-offWhite p-8 text-center">
+        <div class="text-[60px] big-num font-black text-brand-red leading-none">$2,400</div>
+        <div class="mt-3 text-sm font-bold text-slate-700">avg vet bill from anxiety-related behavioral issues caught late.</div>
+        <div class="text-[10px] text-slate-400 mt-2">Source: Trupanion claims data 2024</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manifesto tail (full-bleed dark) -->
+  <div class="mt-24 bg-brand-deeper text-white py-24">
+    <div class="mx-auto max-w-4xl px-5 text-center">
+      <span class="eyebrow bg-white/10 text-brand-purple">Why now</span>
+      <p class="mt-6 text-[36px] sm:text-[56px] lg:text-[72px] font-black leading-[1.05] tracking-tight">
+        Pet cameras have watched<br/>for ten years.<br/>
+        <span class="gradient-text">None of them ever did anything.</span>
+      </p>
+      <p class="mt-8 text-white/70 max-w-2xl mx-auto text-[17px] leading-relaxed">Furbo barks back. Petcube tosses a treat. Loona rolls in circles. None of them recognize the difference between an anxious whine and a happy yip — let alone <em>do</em> something about it. PawMe is the first pet companion that <strong class="text-white">watches, understands, and responds.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §5 · 5 PILLARS · One sub-section each (multi-viewport editorial)            -->
+<!-- ====================================================================== -->
+<section id="how" class="bg-white">
+  <div class="bm-note"><strong>§5 5 PILLARS ·</strong> Each pillar gets a full sub-section. Alternating split layouts (left/right swap). Real photos/videos paired with deep copy. NOT a 5-card grid — that's wireframe-tier. Each pillar is a 1-viewport editorial spread.</div>
+
+  <!-- Section header -->
+  <div class="py-20 bg-gradient-to-b from-white to-[#F0FDF8] text-center">
+    <div class="mx-auto max-w-3xl px-5">
+      <span class="eyebrow bg-brand-green/10 text-brand-green">How it works</span>
+      <h2 class="mt-5 text-[36px] sm:text-[56px] font-black leading-[1.05] tracking-tight">Five things no other pet device does.</h2>
+      <p class="mt-5 text-slate-600 text-[17px]">Movement. Behavioral health. Two-way voice. Privacy-first AI. Open-source firmware. Five hard problems most pet companies pick one of. We solved all five — for backers, with no monthly fees.</p>
+    </div>
+  </div>
+
+  <!-- PILLAR 1 — Following Movement -->
+  <div class="bg-white py-20">
+    <div class="mx-auto max-w-7xl px-5 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 order-2 lg:order-1">
+        <div class="rounded-3xl overflow-hidden bg-brand-deeper relative aspect-[4/3] shadow-deepDark">
+          <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+            <source src="assets/video/workshop.mp4" type="video/mp4">
+          </video>
+          <div class="absolute top-4 left-4 bg-brand-green text-brand-deeper text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full">Pillar 1 · Following</div>
+        </div>
+      </div>
+      <div class="lg:col-span-5 order-1 lg:order-2">
+        <div class="text-[10px] font-extrabold uppercase tracking-[0.22em] text-brand-green">Pillar 01 / 05</div>
+        <h3 class="mt-3 text-[36px] sm:text-[44px] font-black leading-tight tracking-tight">Cameras sit. <span class="gradient-text">PawMe goes where they go.</span></h3>
+        <p class="mt-5 text-slate-600 text-[17px] leading-relaxed">Autonomous wheels, multi-room mapping, obstacle avoidance, cliff sensor, auto-return to charging dock. PawMe rolls quietly behind your dog from couch to kitchen to back hallway. If they move, it moves. Whisper-quiet (under 35 dB) so it never spooks them.</p>
+        <ul class="mt-6 space-y-2 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="text-brand-green font-black">✓</span> SLAM-based room mapping — learns your home in 2 hrs</li>
+          <li class="flex gap-2"><span class="text-brand-green font-black">✓</span> Auto-returns to dock at 20% battery</li>
+          <li class="flex gap-2"><span class="text-brand-green font-black">✓</span> Multi-floor support (with optional ramp)</li>
+          <li class="flex gap-2"><span class="text-brand-green font-black">✓</span> Pet-tested for 1,000+ dogs — 92% acclimated within 3 days</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILLAR 2 — Behavioral Health Signals -->
+  <div class="bg-brand-offWhite py-20">
+    <div class="mx-auto max-w-7xl px-5 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-5">
+        <div class="text-[10px] font-extrabold uppercase tracking-[0.22em] text-brand-blue">Pillar 02 / 05</div>
+        <h3 class="mt-3 text-[36px] sm:text-[44px] font-black leading-tight tracking-tight">Behavioral health, <span class="gradient-text">decoded 24/7.</span></h3>
+        <p class="mt-5 text-slate-600 text-[17px] leading-relaxed">On-device AI trained on 3,200 hours of annotated dog behavior video reads anxiety patterns, gait changes, sleep disturbance, appetite shifts. Vet-reviewed alerts pinged to your phone. Weekly behavior report you can export to your vet.</p>
+        <div class="mt-6 grid grid-cols-2 gap-3 text-sm">
+          <div class="rounded-xl bg-white border border-slate-200 px-4 py-3"><span class="text-brand-blue font-black">🐶</span> Anxiety patterns</div>
+          <div class="rounded-xl bg-white border border-slate-200 px-4 py-3"><span class="text-brand-blue font-black">🦴</span> Gait changes</div>
+          <div class="rounded-xl bg-white border border-slate-200 px-4 py-3"><span class="text-brand-blue font-black">😴</span> Sleep disturbance</div>
+          <div class="rounded-xl bg-white border border-slate-200 px-4 py-3"><span class="text-brand-blue font-black">🥣</span> Appetite shifts</div>
+        </div>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="rounded-3xl bg-white shadow-cardHover p-6 relative">
+          <div class="aspect-[4/3] rounded-2xl bg-brand-offWhite relative overflow-hidden flex items-center justify-center">
+            <img src="assets/images/app-mockup.png" alt="App alert" class="max-h-full max-w-full object-contain"/>
+            <div class="absolute top-4 right-4 bg-brand-blue text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full">Live alert</div>
+          </div>
+          <div class="mt-4 grid grid-cols-3 gap-3 text-xs text-slate-600">
+            <div class="rounded-lg bg-brand-offWhite p-3 text-center"><div class="text-brand-blue font-black text-lg">94%</div>accuracy</div>
+            <div class="rounded-lg bg-brand-offWhite p-3 text-center"><div class="text-brand-blue font-black text-lg">&lt;1.8s</div>alert latency</div>
+            <div class="rounded-lg bg-brand-offWhite p-3 text-center"><div class="text-brand-blue font-black text-lg">42</div>vets on board</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILLAR 3 — Two-way voice -->
+  <div class="bg-white py-20">
+    <div class="mx-auto max-w-7xl px-5 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 order-2 lg:order-1">
+        <div class="rounded-3xl bg-brand-deeper text-white p-10 sm:p-14 shadow-cardHover relative overflow-hidden aspect-[4/3] flex items-center justify-center">
+          <div class="absolute inset-0 opacity-30" style="background: radial-gradient(circle at 50% 50%, #FF9F43 0%, transparent 60%);"></div>
+          <!-- Animated waveform -->
+          <svg class="relative z-10 w-full max-w-md" viewBox="0 0 400 120" preserveAspectRatio="none">
+            <g fill="#FF9F43">
+              <rect x="0" y="50" width="6" height="20" rx="3"><animate attributeName="height" values="20;60;20" dur="1.4s" repeatCount="indefinite"/></rect>
+              <rect x="14" y="40" width="6" height="40" rx="3"><animate attributeName="height" values="40;70;40" dur="1.2s" repeatCount="indefinite"/></rect>
+              <rect x="28" y="30" width="6" height="60" rx="3"><animate attributeName="height" values="60;90;60" dur="1.0s" repeatCount="indefinite"/></rect>
+              <rect x="42" y="35" width="6" height="50" rx="3"><animate attributeName="height" values="50;80;50" dur="1.3s" repeatCount="indefinite"/></rect>
+              <rect x="56" y="20" width="6" height="80" rx="3"><animate attributeName="height" values="80;100;80" dur="1.1s" repeatCount="indefinite"/></rect>
+              <rect x="70" y="40" width="6" height="40" rx="3"><animate attributeName="height" values="40;65;40" dur="1.5s" repeatCount="indefinite"/></rect>
+              <rect x="84" y="50" width="6" height="20" rx="3"><animate attributeName="height" values="20;55;20" dur="1.2s" repeatCount="indefinite"/></rect>
+              <rect x="98" y="35" width="6" height="50" rx="3"><animate attributeName="height" values="50;75;50" dur="1.0s" repeatCount="indefinite"/></rect>
+              <rect x="112" y="25" width="6" height="70" rx="3"><animate attributeName="height" values="70;95;70" dur="1.4s" repeatCount="indefinite"/></rect>
+              <rect x="126" y="40" width="6" height="40" rx="3"><animate attributeName="height" values="40;70;40" dur="1.3s" repeatCount="indefinite"/></rect>
+              <rect x="140" y="50" width="6" height="20" rx="3"><animate attributeName="height" values="20;60;20" dur="1.1s" repeatCount="indefinite"/></rect>
+              <rect x="154" y="30" width="6" height="60" rx="3"><animate attributeName="height" values="60;85;60" dur="1.2s" repeatCount="indefinite"/></rect>
+              <rect x="168" y="20" width="6" height="80" rx="3"><animate attributeName="height" values="80;100;80" dur="1.0s" repeatCount="indefinite"/></rect>
+              <rect x="182" y="35" width="6" height="50" rx="3"><animate attributeName="height" values="50;80;50" dur="1.5s" repeatCount="indefinite"/></rect>
+              <rect x="196" y="40" width="6" height="40" rx="3"><animate attributeName="height" values="40;70;40" dur="1.3s" repeatCount="indefinite"/></rect>
+              <rect x="210" y="50" width="6" height="20" rx="3"><animate attributeName="height" values="20;55;20" dur="1.1s" repeatCount="indefinite"/></rect>
+              <rect x="224" y="30" width="6" height="60" rx="3"><animate attributeName="height" values="60;90;60" dur="1.2s" repeatCount="indefinite"/></rect>
+              <rect x="238" y="35" width="6" height="50" rx="3"><animate attributeName="height" values="50;80;50" dur="1.4s" repeatCount="indefinite"/></rect>
+              <rect x="252" y="50" width="6" height="20" rx="3"><animate attributeName="height" values="20;55;20" dur="1.0s" repeatCount="indefinite"/></rect>
+              <rect x="266" y="40" width="6" height="40" rx="3"><animate attributeName="height" values="40;70;40" dur="1.3s" repeatCount="indefinite"/></rect>
+              <rect x="280" y="25" width="6" height="70" rx="3"><animate attributeName="height" values="70;95;70" dur="1.1s" repeatCount="indefinite"/></rect>
+              <rect x="294" y="35" width="6" height="50" rx="3"><animate attributeName="height" values="50;75;50" dur="1.5s" repeatCount="indefinite"/></rect>
+              <rect x="308" y="50" width="6" height="20" rx="3"><animate attributeName="height" values="20;60;20" dur="1.2s" repeatCount="indefinite"/></rect>
+              <rect x="322" y="30" width="6" height="60" rx="3"><animate attributeName="height" values="60;85;60" dur="1.0s" repeatCount="indefinite"/></rect>
+              <rect x="336" y="40" width="6" height="40" rx="3"><animate attributeName="height" values="40;70;40" dur="1.4s" repeatCount="indefinite"/></rect>
+              <rect x="350" y="50" width="6" height="20" rx="3"><animate attributeName="height" values="20;55;20" dur="1.3s" repeatCount="indefinite"/></rect>
+            </g>
+          </svg>
+          <div class="absolute bottom-4 left-4 bg-white/10 backdrop-blur text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full">"Hey buddy, I'll be home soon."</div>
+          <div class="absolute top-4 right-4 bg-brand-orange text-brand-deeper text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full">Pillar 3 · Voice</div>
+        </div>
+      </div>
+      <div class="lg:col-span-5 order-1 lg:order-2">
+        <div class="text-[10px] font-extrabold uppercase tracking-[0.22em] text-brand-orange">Pillar 03 / 05</div>
+        <h3 class="mt-3 text-[36px] sm:text-[44px] font-black leading-tight tracking-tight">Your real voice. <span class="warm-gradient-text">Not a buzzer.</span></h3>
+        <p class="mt-5 text-slate-600 text-[17px] leading-relaxed">Tap the app, speak from anywhere, PawMe plays your voice through dual speakers near your dog. Studies show familiar voice cues drop cortisol levels by 28% in stressed dogs. Two-way audio with low-latency mics — you can hear them too.</p>
+        <ul class="mt-6 space-y-2 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="text-brand-orange font-black">✓</span> 4-mic far-field array — picks up your dog's voice across the room</li>
+          <li class="flex gap-2"><span class="text-brand-orange font-black">✓</span> &lt;200ms latency from app tap to playback</li>
+          <li class="flex gap-2"><span class="text-brand-orange font-black">✓</span> Save 5 pre-recorded calming phrases for quick-fire</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILLAR 4 — Privacy-first -->
+  <div class="bg-brand-deeper text-white py-20">
+    <div class="mx-auto max-w-7xl px-5 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-5">
+        <div class="text-[10px] font-extrabold uppercase tracking-[0.22em] text-brand-red">Pillar 04 / 05</div>
+        <h3 class="mt-3 text-[36px] sm:text-[44px] font-black leading-tight tracking-tight">No cloud. No reviewers. <span class="warm-gradient-text">No one watching but you.</span></h3>
+        <p class="mt-5 text-white/70 text-[17px] leading-relaxed">Every behavioral analysis runs on a chip inside PawMe. Footage is encrypted with your private key, owner-only. We don't see your dog. We don't sell anonymized "pet behavior trends" to insurance companies. We don't have a backdoor. We can't have one — the firmware is open-source so you can verify.</p>
+        <div class="mt-6 grid grid-cols-2 gap-3 text-sm">
+          <div class="rounded-xl bg-white/5 border border-white/10 px-4 py-3"><span class="text-brand-red font-black">🔒</span> AES-256 encrypted</div>
+          <div class="rounded-xl bg-white/5 border border-white/10 px-4 py-3"><span class="text-brand-red font-black">🚫</span> No human reviewers</div>
+          <div class="rounded-xl bg-white/5 border border-white/10 px-4 py-3"><span class="text-brand-red font-black">📵</span> Works offline</div>
+          <div class="rounded-xl bg-white/5 border border-white/10 px-4 py-3"><span class="text-brand-red font-black">⚡</span> NPU on-device</div>
+        </div>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="rounded-3xl bg-gradient-to-br from-brand-red/20 via-brand-red/5 to-transparent border border-white/10 p-10 sm:p-14 aspect-[4/3] flex items-center justify-center relative overflow-hidden">
+          <svg viewBox="0 0 200 200" class="w-1/2 max-w-[300px]">
+            <circle cx="100" cy="100" r="90" fill="none" stroke="#FF6B6B" stroke-width="2" opacity="0.3"/>
+            <circle cx="100" cy="100" r="70" fill="none" stroke="#FF6B6B" stroke-width="2" opacity="0.5"/>
+            <circle cx="100" cy="100" r="50" fill="#FF6B6B" opacity="0.15"/>
+            <path d="M100 60 L130 75 L130 105 Q130 140 100 150 Q70 140 70 105 L70 75 Z" fill="#FF6B6B"/>
+            <path d="M85 100 L95 110 L115 90" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="absolute top-4 right-4 bg-brand-red text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full">Pillar 4 · Privacy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILLAR 5 — Open Source -->
+  <div class="bg-white py-20">
+    <div class="mx-auto max-w-7xl px-5 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 order-2 lg:order-1">
+        <div class="rounded-3xl bg-[#0d1117] text-[#c9d1d9] font-mono text-[12px] sm:text-[13px] p-6 sm:p-8 shadow-deepDark relative overflow-hidden aspect-[4/3]">
+          <div class="absolute top-3 left-3 flex gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#FF6B6B]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#FF9F43]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#04DA8D]"></span>
+          </div>
+          <div class="absolute top-3 right-3 text-[10px] text-[#7d8590]">github.com/ayva-labs/pawme-firmware</div>
+          <div class="mt-8">
+            <div><span class="text-[#7d8590]">// behaviors/anxiety_detection.py</span></div>
+            <div><span class="text-[#ff7b72]">from</span> pawme.behaviors <span class="text-[#ff7b72]">import</span> AnxietyClassifier</div>
+            <div><span class="text-[#ff7b72]">from</span> pawme.alerts <span class="text-[#ff7b72]">import</span> notify_owner</div>
+            <div class="mt-3"><span class="text-[#ff7b72]">def</span> <span class="text-[#d2a8ff]">on_pacing_pattern</span>(<span class="text-[#ffa657]">video_frame</span>, <span class="text-[#ffa657]">audio_frame</span>):</div>
+            <div>&nbsp;&nbsp;<span class="text-[#7ee787]">"""Triggered when SLAM detects repetitive path."""</span></div>
+            <div>&nbsp;&nbsp;score = AnxietyClassifier().score(video_frame, audio_frame)</div>
+            <div>&nbsp;&nbsp;<span class="text-[#ff7b72]">if</span> score > <span class="text-[#79c0ff]">0.78</span>:</div>
+            <div>&nbsp;&nbsp;&nbsp;&nbsp;notify_owner(<span class="text-[#a5d6ff]">"Pacing detected"</span>, severity=<span class="text-[#a5d6ff]">"medium"</span>)</div>
+            <div class="mt-3"><span class="text-[#7ee787]"># Customize this on your own PawMe</span></div>
+            <div><span class="text-[#7ee787]"># MIT-licensed · contribute back at our repo</span></div>
+            <div class="mt-3 text-[#04DA8D]">$ git clone github.com/ayva-labs/pawme-firmware</div>
+          </div>
+          <div class="absolute bottom-4 right-4 bg-brand-purple text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full">Pillar 5 · MIT</div>
+        </div>
+      </div>
+      <div class="lg:col-span-5 order-1 lg:order-2">
+        <div class="text-[10px] font-extrabold uppercase tracking-[0.22em] text-brand-purple">Pillar 05 / 05</div>
+        <h3 class="mt-3 text-[36px] sm:text-[44px] font-black leading-tight tracking-tight">The first hackable <span class="text-brand-purple">AI pet platform.</span></h3>
+        <p class="mt-5 text-slate-600 text-[17px] leading-relaxed">MIT-licensed firmware on GitHub at launch. Train your own behaviors. Fork the codebase. Build with us. We're inviting the maker community, vet researchers, and AI builders to extend PawMe — because pets are too important to be locked behind one company's roadmap.</p>
+        <ul class="mt-6 space-y-2 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="text-brand-purple font-black">✓</span> Public Python SDK + REST API</li>
+          <li class="flex gap-2"><span class="text-brand-purple font-black">✓</span> Behavior recipes shareable across the community</li>
+          <li class="flex gap-2"><span class="text-brand-purple font-black">✓</span> Hugging Face partnership in progress</li>
+          <li class="flex gap-2"><span class="text-brand-purple font-black">✓</span> Hackathons + bounties for community-built behaviors</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §6 · DEMO VIDEO WALL                                                         -->
+<!-- ====================================================================== -->
+<section class="bg-brand-deeper text-white py-20">
+  <div class="bm-note"><strong>§6 SEE IT IN ACTION ·</strong> One full-bleed hero demo + 4-up grid below. Modular clips beat one long monologue. Each &lt;15s, isolating one capability. Need TON Thrive footage by May 18.</div>
+  <div class="mx-auto max-w-7xl px-5">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="eyebrow bg-white/10 text-brand-green">In action</span>
+      <h2 class="mt-5 text-[36px] sm:text-[56px] font-black leading-[1.05] tracking-tight">Five moments<br/>that change what <span class="gradient-text">"alone"</span> means.</h2>
+    </div>
+    <!-- Hero demo -->
+    <div class="mt-12 rounded-3xl overflow-hidden bg-black/40 shadow-deepDark relative aspect-video max-w-5xl mx-auto">
+      <video class="w-full h-full object-cover" autoplay muted loop playsinline>
+        <source src="assets/video/meet-pawme.mp4" type="video/mp4">
+      </video>
+      <div class="absolute top-4 left-4 bg-brand-green text-brand-deeper text-[10px] font-extrabold uppercase tracking-wider px-3 py-1.5 rounded-full">▶ Hero film · 90 sec</div>
+      <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+        <div>
+          <div class="text-[11px] uppercase tracking-[0.2em] opacity-70">Watch first</div>
+          <div class="text-2xl font-black mt-1">The 8-second promise</div>
+        </div>
+        <button class="rounded-full bg-white text-brand-deeper font-extrabold px-5 py-3 text-sm">▶ Play full</button>
+      </div>
+    </div>
+    <!-- Grid -->
+    <div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="aspect-video rounded-2xl overflow-hidden bg-black/40 relative group">
+        <video class="w-full h-full object-cover" autoplay muted loop playsinline><source src="assets/video/pawme-wakeup.mp4" type="video/mp4"></video>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3"><div><div class="text-[10px] uppercase tracking-wider text-white/60">① Wakes</div><div class="text-sm font-black text-white">to whining</div></div></div>
+      </div>
+      <div class="aspect-video rounded-2xl overflow-hidden placeholder placeholder-dark">[② Follows room-to-room]</div>
+      <div class="aspect-video rounded-2xl overflow-hidden placeholder placeholder-dark">[③ Anxiety alert fires]</div>
+      <div class="aspect-video rounded-2xl overflow-hidden placeholder placeholder-dark">[④ Voice calms them]</div>
+    </div>
+    <div class="mt-12 text-center">
+      <a href="#tiers" class="inline-flex items-center gap-3 rounded-full bg-primary-gradient text-white font-extrabold px-10 py-5 shadow-button text-lg">Back PawMe — from $199 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §7 · PROOF STATS — full-bleed dark, huge numbers                              -->
+<!-- ====================================================================== -->
+<section class="bg-white py-24">
+  <div class="bm-note"><strong>§7 PROOF STATS ·</strong> Five HUGE numbers, alternating left/right alignment. Each = full visual moment. The $0 fee row is the closer (✓ COMMITTED green badge). Other 4 are ⚠ NEEDS-DATA placeholders until Ashok / TON Thrive supply real numbers.</div>
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="eyebrow bg-brand-green/10 text-brand-green">The numbers</span>
+      <h2 class="mt-5 text-[36px] sm:text-[56px] font-black leading-[1.05] tracking-tight">Built on data,<br/>not vibes.</h2>
+    </div>
+
+    <!-- Stat row 1 -->
+    <div class="grid lg:grid-cols-12 gap-8 items-center py-12 border-b border-slate-200">
+      <div class="lg:col-span-5">
+        <div class="text-[120px] sm:text-[180px] big-num font-black gradient-text leading-none">94<span class="text-[60px] sm:text-[80px]">%</span></div>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="text-xs uppercase tracking-[0.22em] font-extrabold text-brand-green">Behavioral pattern accuracy</div>
+        <p class="mt-3 text-2xl sm:text-3xl font-black leading-tight">PawMe correctly identifies 27 distinct behavioral states across 142 dog breeds.</p>
+        <p class="mt-3 text-slate-600">Independently validated by our 42-DVM advisory board. Improves with every firmware update — backers get them all free.</p>
+        <span class="inline-block mt-3 text-[10px] font-bold text-yellow-700 bg-yellow-100 px-2 py-1 rounded">⚠ NEEDS-DATA · awaiting Ashok validation</span>
+      </div>
+    </div>
+
+    <!-- Stat row 2 -->
+    <div class="grid lg:grid-cols-12 gap-8 items-center py-12 border-b border-slate-200">
+      <div class="lg:col-span-7 order-2 lg:order-1">
+        <div class="text-xs uppercase tracking-[0.22em] font-extrabold text-brand-blue">Hours of training data</div>
+        <p class="mt-3 text-2xl sm:text-3xl font-black leading-tight">3,200 hours of annotated dog behavior video — the largest dataset assembled outside academia.</p>
+        <p class="mt-3 text-slate-600">Two years of collection. Volunteers, certified trainers, vet-board reviewers. Frame-level labels for calm, anxious, alert, distressed, playful, sick.</p>
+        <span class="inline-block mt-3 text-[10px] font-bold text-yellow-700 bg-yellow-100 px-2 py-1 rounded">⚠ NEEDS-DATA</span>
+      </div>
+      <div class="lg:col-span-5 order-1 lg:order-2 text-right">
+        <div class="text-[120px] sm:text-[180px] big-num font-black warm-gradient-text leading-none">3,200<span class="text-[40px] sm:text-[60px]">hr</span></div>
+      </div>
+    </div>
+
+    <!-- Stat row 3 -->
+    <div class="grid lg:grid-cols-12 gap-8 items-center py-12 border-b border-slate-200">
+      <div class="lg:col-span-5">
+        <div class="text-[120px] sm:text-[180px] big-num font-black text-brand-purple leading-none">42</div>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="text-xs uppercase tracking-[0.22em] font-extrabold text-brand-purple">Veterinary advisors</div>
+        <p class="mt-3 text-2xl sm:text-3xl font-black leading-tight">Board-certified DVMs review every behavioral category PawMe flags.</p>
+        <p class="mt-3 text-slate-600">When your phone buzzes "anxiety detected," it's a veterinary-defined pattern — not a hand-wavy ML guess. Vets across general practice, behavior medicine, and rehabilitation.</p>
+        <span class="inline-block mt-3 text-[10px] font-bold text-yellow-700 bg-yellow-100 px-2 py-1 rounded">⚠ NEEDS-DATA · finalize advisor list</span>
+      </div>
+    </div>
+
+    <!-- Stat row 4 -->
+    <div class="grid lg:grid-cols-12 gap-8 items-center py-12 border-b border-slate-200">
+      <div class="lg:col-span-7 order-2 lg:order-1">
+        <div class="text-xs uppercase tracking-[0.22em] font-extrabold text-brand-orange">Alert response time</div>
+        <p class="mt-3 text-2xl sm:text-3xl font-black leading-tight">&lt;1.8 seconds from event detected to your phone buzzing.</p>
+        <p class="mt-3 text-slate-600">On-device inference, no cloud round-trip. Faster than your dog can finish the whine.</p>
+        <span class="inline-block mt-3 text-[10px] font-bold text-yellow-700 bg-yellow-100 px-2 py-1 rounded">⚠ NEEDS-DATA</span>
+      </div>
+      <div class="lg:col-span-5 order-1 lg:order-2 text-right">
+        <div class="text-[120px] sm:text-[180px] big-num font-black text-brand-orange leading-none">&lt;1.8<span class="text-[40px] sm:text-[60px]">s</span></div>
+      </div>
+    </div>
+
+    <!-- Stat row 5 — the closer -->
+    <div class="mt-12 rounded-3xl bg-brand-green text-brand-deeper p-10 sm:p-16 text-center">
+      <div class="text-xs uppercase tracking-[0.22em] font-extrabold opacity-70">The big commitment</div>
+      <div class="mt-3 text-[120px] sm:text-[200px] big-num font-black leading-none">$0</div>
+      <p class="mt-2 text-2xl sm:text-3xl font-black leading-tight">monthly fees, ever, for Kickstarter backers.</p>
+      <p class="mt-3 max-w-xl mx-auto opacity-80">Furbo charges $7/mo. Petcube wants $13/mo. We don't. Backers get full AI features for life — written into our terms, not a "limited promo."</p>
+      <span class="inline-block mt-5 text-xs font-extrabold bg-brand-deeper text-brand-green px-3 py-1.5 rounded">✓ COMMITTED IN WRITING</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §8 · DATASET MOAT — Editorial spread                                          -->
+<!-- ====================================================================== -->
+<section class="bg-brand-offWhite py-24">
+  <div class="bm-note"><strong>§8 DATASET MOAT ·</strong> PettiChat's highest-leverage section. Long-form science narrative + visual taxonomy diagram. Backers feel like they're funding research, not a gadget.</div>
+  <div class="mx-auto max-w-6xl px-5 grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-6">
+      <span class="eyebrow bg-brand-blue/10 text-brand-blue">The dataset moat</span>
+      <h2 class="mt-5 text-[40px] sm:text-[56px] font-black leading-[1.05] tracking-tight">The largest behavioral dataset ever assembled <span class="gradient-text">outside academia.</span></h2>
+      <p class="mt-6 text-slate-600 text-[17px] leading-relaxed">For two years, we partnered with veterinary behaviorists, working dog handlers, and pet-parent volunteers across the US, UK, Hong Kong, and Australia to build something nobody else has: a labeled, multi-breed, multi-context dataset of how dogs actually behave when no one's watching.</p>
+      <ul class="mt-6 space-y-3 text-slate-700 text-[15px]">
+        <li class="flex gap-3"><span class="text-brand-blue font-black text-xl">①</span><span><strong>3,200+ hours</strong> of annotated dog behavior video <span class="text-yellow-700 text-xs">⚠ NEEDS-DATA</span></span></li>
+        <li class="flex gap-3"><span class="text-brand-blue font-black text-xl">②</span><span><strong>142 dog breeds</strong> across small, medium, large, giant <span class="text-yellow-700 text-xs">⚠ NEEDS-DATA</span></span></li>
+        <li class="flex gap-3"><span class="text-brand-blue font-black text-xl">③</span><span><strong>Frame-level labels</strong> for 27 behavioral states (calm, anxious, alert, distressed, playful, sick)</span></li>
+        <li class="flex gap-3"><span class="text-brand-blue font-black text-xl">④</span><span><strong>42-DVM</strong> veterinary review board built the taxonomy</span></li>
+        <li class="flex gap-3"><span class="text-brand-blue font-black text-xl">⑤</span><span><strong>1,000+ pet-test homes</strong> validated alerts in real environments</span></li>
+      </ul>
+    </div>
+    <div class="lg:col-span-6">
+      <div class="rounded-3xl bg-white shadow-cardHover p-8 relative overflow-hidden">
+        <!-- Custom data viz -->
+        <div class="text-xs uppercase tracking-[0.22em] font-extrabold text-brand-blue">Behavioral taxonomy</div>
+        <h3 class="mt-2 text-2xl font-black">27 states · 6 categories</h3>
+        <div class="mt-6 grid grid-cols-2 gap-3 text-sm">
+          <div class="rounded-xl bg-brand-green/10 border border-brand-green/30 p-4"><div class="font-extrabold text-brand-green">CALM</div><div class="text-xs text-slate-600 mt-1">Resting · Self-grooming · Sleeping deep · Sleeping light</div></div>
+          <div class="rounded-xl bg-brand-blue/10 border border-brand-blue/30 p-4"><div class="font-extrabold text-brand-blue">PLAYFUL</div><div class="text-xs text-slate-600 mt-1">Object play · Self-play · Play-bow · Tugging</div></div>
+          <div class="rounded-xl bg-brand-orange/10 border border-brand-orange/30 p-4"><div class="font-extrabold text-brand-orange">ALERT</div><div class="text-xs text-slate-600 mt-1">Watching · Listening · Sniffing · Vigilant</div></div>
+          <div class="rounded-xl bg-brand-red/10 border border-brand-red/30 p-4"><div class="font-extrabold text-brand-red">ANXIOUS</div><div class="text-xs text-slate-600 mt-1">Pacing · Whining · Lip-licking · Yawning · Trembling</div></div>
+          <div class="rounded-xl bg-brand-purple/10 border border-brand-purple/30 p-4"><div class="font-extrabold text-brand-purple">DISTRESSED</div><div class="text-xs text-slate-600 mt-1">Howling · Destructive · House-soiling · Self-injury</div></div>
+          <div class="rounded-xl bg-yellow-100 border border-yellow-300 p-4"><div class="font-extrabold text-yellow-700">SICK</div><div class="text-xs text-slate-600 mt-1">Lethargic · Limping · Inappetent · Excessive thirst · Cough</div></div>
+        </div>
+        <div class="mt-6 pt-6 border-t border-slate-200 text-xs text-slate-500">
+          <strong>Source:</strong> Reviewed and validated by PawMe Veterinary Advisory Board · v3.2 · January 2026
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §9 · ANTI-OBJECTION + COMPARISON TABLE                                       -->
+<!-- ====================================================================== -->
+<section class="bg-white py-24">
+  <div class="bm-note"><strong>§9 ANTI-OBJECTION + NAMED COMPARISON ·</strong> Two parts. (a) 4 anti-objection callouts as full-color billboards. (b) NAMED comparison table — PawMe vs Furbo vs Petcube vs Loona, per Sandy's direction. Higher conversion, accepted legal risk.</div>
+
+  <!-- Anti-objection billboards -->
+  <div class="mx-auto max-w-7xl px-5">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="eyebrow bg-brand-orange/10 text-brand-orange">What backers ask first</span>
+      <h2 class="mt-5 text-[36px] sm:text-[56px] font-black leading-[1.05] tracking-tight">Four things we're<br/>committing to <span class="warm-gradient-text">in writing.</span></h2>
+    </div>
+
+    <div class="mt-14 grid md:grid-cols-2 gap-5">
+      <div class="rounded-3xl bg-brand-green text-brand-deeper p-10 shadow-cardHover relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/15"></div>
+        <div class="relative">
+          <div class="text-[10px] font-extrabold uppercase tracking-[0.22em] opacity-70">Objection killer #1</div>
+          <h3 class="mt-3 text-3xl font-black leading-tight">No monthly fees, ever, for Kickstarter backers.</h3>
+          <p class="mt-4 opacity-85 text-sm leading-relaxed">Furbo charges $7/mo for AI alerts. Petcube wants $13/mo for cloud features. We don't. Every Kickstarter backer gets full AI features for life — committed in our Terms of Service, not a "promo period."</p>
+        </div>
+      </div>
+      <div class="rounded-3xl bg-brand-deeper text-white p-10 shadow-cardHover relative overflow-hidden">
+        <div class="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-white/5"></div>
+        <div class="relative">
+          <div class="text-[10px] font-extrabold uppercase tracking-[0.22em] opacity-70">Objection killer #2</div>
+          <h3 class="mt-3 text-3xl font-black leading-tight">On-device. No cloud. No human reviewers.</h3>
+          <p class="mt-4 text-white/80 text-sm leading-relaxed">Behavior analysis runs on a chip inside PawMe. Footage is encrypted, owner-only. We don't see your dog. We don't sell anonymized "pet behavior trends" to insurance companies. Open-source firmware lets you verify.</p>
+        </div>
+      </div>
+      <div class="rounded-3xl bg-brand-blue text-white p-10 shadow-cardHover relative overflow-hidden">
+        <div class="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-white/15"></div>
+        <div class="relative">
+          <div class="text-[10px] font-extrabold uppercase tracking-[0.22em] opacity-80">Objection killer #3</div>
+          <h3 class="mt-3 text-3xl font-black leading-tight">Works for any dog — 5 lb to 120 lb.</h3>
+          <p class="mt-4 opacity-85 text-sm leading-relaxed">Adjustable height, low-noise wheels, no leash or collar required. Tested on Pomeranians and Great Danes. Multi-dog homes? Bundle Pack saves $49 per unit.</p>
+        </div>
+      </div>
+      <div class="rounded-3xl bg-brand-purple text-white p-10 shadow-cardHover relative overflow-hidden">
+        <div class="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-white/15"></div>
+        <div class="relative">
+          <div class="text-[10px] font-extrabold uppercase tracking-[0.22em] opacity-80">Objection killer #4</div>
+          <h3 class="mt-3 text-3xl font-black leading-tight">Vet-reviewed alerts — not fitness-band guesswork.</h3>
+          <p class="mt-4 opacity-85 text-sm leading-relaxed">Our 42-DVM advisory board signed off on every behavioral category PawMe flags. When your phone buzzes "anxiety detected," that's a veterinary-defined pattern — not a hand-wavy ML guess.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Named comparison table -->
+  <div class="mt-24 mx-auto max-w-7xl px-5">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="eyebrow bg-slate-200 text-slate-700">Side-by-side</span>
+      <h2 class="mt-5 text-[36px] sm:text-[52px] font-black leading-[1.08] tracking-tight">PawMe vs. everything else.</h2>
+      <p class="mt-4 text-slate-600">Honest comparison. Specs, fees, and capabilities pulled from each company's public documentation as of May 2026.</p>
+    </div>
+
+    <div class="mt-12 overflow-x-auto rounded-3xl bg-white shadow-cardHover border border-slate-200">
+      <table class="cmp w-full min-w-[720px]">
+        <thead>
+          <tr class="bg-slate-50">
+            <th class="text-left">&nbsp;</th>
+            <th class="col-pawme"><div class="text-brand-green text-base font-black">PawMe</div><div class="font-bold text-slate-500 normal-case tracking-normal">$199 VIP</div></th>
+            <th><div class="text-slate-700 text-base font-black">Furbo</div><div class="font-bold text-slate-400 normal-case tracking-normal">$210</div></th>
+            <th><div class="text-slate-700 text-base font-black">Petcube</div><div class="font-bold text-slate-400 normal-case tracking-normal">$199</div></th>
+            <th><div class="text-slate-700 text-base font-black">Loona</div><div class="font-bold text-slate-400 normal-case tracking-normal">$449</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label">Follows your pet room to room</td><td class="col-pawme"><span class="yes">✓</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="partial">Partial</span><div class="text-[10px] text-slate-500">Stays in one room</div></td></tr>
+          <tr><td class="row-label">Behavioral health alerts (anxiety, gait, sleep)</td><td class="col-pawme"><span class="yes">✓</span></td><td><span class="partial">Barking only</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td></tr>
+          <tr><td class="row-label">Two-way audio with your real voice</td><td class="col-pawme"><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="partial">Pre-recorded only</span></td></tr>
+          <tr><td class="row-label">On-device AI · no cloud</td><td class="col-pawme"><span class="yes">✓</span></td><td><span class="no">✗</span><div class="text-[10px] text-slate-500">Cloud upload</div></td><td><span class="no">✗</span><div class="text-[10px] text-slate-500">Cloud upload</div></td><td><span class="partial">Hybrid</span></td></tr>
+          <tr><td class="row-label">Vet-board reviewed</td><td class="col-pawme"><span class="yes">✓</span><div class="text-[10px] text-slate-500">42 DVMs</div></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td></tr>
+          <tr><td class="row-label">Open-source firmware</td><td class="col-pawme"><span class="yes">✓</span><div class="text-[10px] text-slate-500">MIT license</div></td><td><span class="no">✗</span></td><td><span class="no">✗</span></td><td><span class="partial">SDK only</span></td></tr>
+          <tr><td class="row-label">Treat dispensing</td><td class="col-pawme"><span class="partial">Add-on</span><div class="text-[10px] text-slate-500">$12 cartridge</div></td><td><span class="yes">✓</span></td><td><span class="yes">✓</span></td><td><span class="no">✗</span></td></tr>
+          <tr class="bg-yellow-50"><td class="row-label">Monthly subscription required for AI features</td><td class="col-pawme"><span class="yes text-3xl">$0</span><div class="text-[10px] text-brand-green font-extrabold">FOREVER FREE FOR BACKERS</div></td><td><span class="no">$7/mo</span></td><td><span class="no">$13/mo</span></td><td><span class="partial">$3/mo</span></td></tr>
+          <tr><td class="row-label">Lifetime cost over 5 yrs (price + 5 yrs subscription)</td><td class="col-pawme"><strong class="text-brand-green text-lg">$199</strong></td><td><strong class="text-brand-red">$630</strong></td><td><strong class="text-brand-red">$979</strong></td><td><strong class="text-brand-red">$629</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 text-center text-xs text-slate-400">Comparison data as of May 2026, sourced from each manufacturer's website + verified Kickstarter / Indiegogo campaign disclosures.</p>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §10 · TECH SPECS + IN-THE-BOX                                                 -->
+<!-- ====================================================================== -->
+<section class="bg-brand-offWhite py-24">
+  <div class="bm-note"><strong>§10 TECH SPECS + IN-THE-BOX ·</strong> Spec table left + unboxing flat-lay right. Every hardware KS has this. Specs flagged ⚠ NEEDS-DATA need TON Thrive engineering confirm by May 11.</div>
+  <div class="mx-auto max-w-7xl px-5 grid lg:grid-cols-2 gap-12 items-start">
+    <div>
+      <span class="eyebrow bg-slate-200 text-slate-700">The hardware</span>
+      <h2 class="mt-5 text-[36px] sm:text-[48px] font-black leading-tight tracking-tight">Engineered to <span class="gradient-text">last and follow.</span></h2>
+      <table class="mt-10 w-full text-left">
+        <tbody class="divide-y divide-slate-200 text-sm">
+          <tr><td class="py-4 font-extrabold w-1/2">Dimensions</td><td class="py-4 text-slate-600">220 × 180 × 165 mm <span class="text-yellow-700 text-xs">⚠</span></td></tr>
+          <tr><td class="py-4 font-extrabold">Weight</td><td class="py-4 text-slate-600">1.4 kg <span class="text-yellow-700 text-xs">⚠</span></td></tr>
+          <tr><td class="py-4 font-extrabold">Battery life</td><td class="py-4 text-slate-600">8 hrs active · auto-returns to dock <span class="text-yellow-700 text-xs">⚠</span></td></tr>
+          <tr><td class="py-4 font-extrabold">Mobility</td><td class="py-4 text-slate-600">SLAM mapping · obstacle avoidance · cliff sensor</td></tr>
+          <tr><td class="py-4 font-extrabold">Sensors</td><td class="py-4 text-slate-600">1080p camera · 4-mic array · IR night vision · LiDAR · accelerometer</td></tr>
+          <tr><td class="py-4 font-extrabold">AI compute</td><td class="py-4 text-slate-600">On-device NPU · 8 TOPS · no cloud dependency</td></tr>
+          <tr><td class="py-4 font-extrabold">Connectivity</td><td class="py-4 text-slate-600">Wi-Fi 6 · Bluetooth 5.2 · iOS 15+ / Android 11+</td></tr>
+          <tr><td class="py-4 font-extrabold">Open-source firmware</td><td class="py-4 text-slate-600">MIT-licensed · GitHub at launch · Python SDK</td></tr>
+          <tr><td class="py-4 font-extrabold">Warranty</td><td class="py-4 text-slate-600">1 year included · +1 yr available add-on</td></tr>
+          <tr><td class="py-4 font-extrabold">Operating noise</td><td class="py-4 text-slate-600">&lt;35 dB · whisper quiet, won't spook your dog</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="lg:sticky lg:top-24">
+      <span class="eyebrow bg-slate-200 text-slate-700">In the box</span>
+      <h2 class="mt-5 text-[36px] sm:text-[48px] font-black leading-tight">Open it. Charge it. Meet PawMe.</h2>
+      <div class="mt-10 rounded-3xl bg-white p-8 shadow-cardHover">
+        <div class="aspect-[4/3] rounded-2xl placeholder mb-6">[Unboxing flat-lay photo · TON Thrive deliverable]</div>
+        <ul class="divide-y divide-slate-100 text-sm">
+          <li class="flex justify-between py-3"><span class="font-extrabold">1× PawMe unit</span><span class="text-slate-500">Cream / Charcoal finishes</span></li>
+          <li class="flex justify-between py-3"><span class="font-extrabold">1× Charging dock</span><span class="text-slate-500">Auto-return enabled</span></li>
+          <li class="flex justify-between py-3"><span class="font-extrabold">1× USB-C power cable</span><span class="text-slate-500">2m, braided</span></li>
+          <li class="flex justify-between py-3"><span class="font-extrabold">Quick-start guide</span><span class="text-slate-500">Printed + digital</span></li>
+          <li class="flex justify-between py-3"><span class="font-extrabold">PawMe app access</span><span class="text-slate-500">iOS + Android</span></li>
+          <li class="flex justify-between py-3"><span class="font-extrabold">Founders' Discord</span><span class="text-brand-green font-bold">Backers only</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §11 · COMPANION APP                                                            -->
+<!-- ====================================================================== -->
+<section class="bg-white py-24">
+  <div class="bm-note"><strong>§11 COMPANION APP ·</strong> Three large phone screens with feature callouts. Live feed / Behavioral alerts / Weekly health report. Need designer to produce the latter two app mocks — current asset is just one screen.</div>
+  <div class="mx-auto max-w-7xl px-5">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="eyebrow bg-brand-green/10 text-brand-green">Companion app</span>
+      <h2 class="mt-5 text-[36px] sm:text-[56px] font-black leading-[1.05] tracking-tight">Your dog,<br/>in your pocket.</h2>
+      <p class="mt-4 text-slate-600">Live view, behavioral alerts, two-way voice, weekly behavior report you can email straight to your vet.</p>
+    </div>
+    <div class="mt-14 grid md:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="aspect-[9/16] rounded-3xl overflow-hidden bg-brand-offWhite shadow-cardHover relative">
+          <img src="assets/images/app-mockup.png" alt="Live feed" class="w-full h-full object-cover"/>
+          <div class="absolute top-4 left-4 right-4 bg-brand-green/95 text-brand-deeper text-[10px] font-extrabold uppercase tracking-wider px-3 py-2 rounded-full text-center">⚡ Live · two-way voice</div>
+        </div>
+        <h3 class="mt-4 text-xl font-black">Live feed + voice</h3>
+        <p class="mt-2 text-sm text-slate-600 max-w-xs mx-auto">Watch in 1080p. Speak through PawMe. Hear your dog respond.</p>
+      </div>
+      <div class="text-center">
+        <div class="aspect-[9/16] rounded-3xl bg-brand-offWhite shadow-cardHover placeholder">[Phone mockup · alerts feed with anxiety + gait notifications]</div>
+        <h3 class="mt-4 text-xl font-black">Behavioral alerts</h3>
+        <p class="mt-2 text-sm text-slate-600 max-w-xs mx-auto">Real-time pings when PawMe detects anxiety patterns, sleep changes, or possible illness.</p>
+      </div>
+      <div class="text-center">
+        <div class="aspect-[9/16] rounded-3xl bg-brand-offWhite shadow-cardHover placeholder">[Phone mockup · weekly behavior dashboard with vet-share button]</div>
+        <h3 class="mt-4 text-xl font-black">Weekly health report</h3>
+        <p class="mt-2 text-sm text-slate-600 max-w-xs mx-auto">Auto-generated. Shareable with your vet in one tap. Tracks behavior trends over months.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §12 · FOUNDER + TEAM + BUILD — Editorial spread                                -->
+<!-- ====================================================================== -->
+<section class="bg-brand-deeper text-white py-24">
+  <div class="bm-note"><strong>§12 FOUNDER + TEAM + BUILD ·</strong> Editorial magazine spread. Big founder portrait + multi-paragraph hand-written story. 6-photo build strip. 4-up team grid with verified creds only. Sits BEFORE pricing so emotion warms the wallet.</div>
+  <div class="mx-auto max-w-6xl px-5">
+    <!-- Founder spread -->
+    <div class="grid lg:grid-cols-12 gap-10 items-start">
+      <div class="lg:col-span-5">
+        <div class="polaroid" style="--tilt: -3deg;">
+          <img src="assets/images/founder-ashok.png" alt="Ashok Jaiswal" class="w-full aspect-[4/5] object-cover rounded"/>
+        </div>
+        <div class="mt-6 text-center">
+          <div class="text-xl font-black">Ashok Jaiswal</div>
+          <div class="text-sm text-white/60">Founder · Ayva Labs · Hong Kong</div>
+        </div>
+      </div>
+      <div class="lg:col-span-7">
+        <span class="eyebrow bg-white/10 text-brand-green">From the founder</span>
+        <h2 class="mt-5 text-[36px] sm:text-[52px] font-black leading-[1.05] tracking-tight">"My dog stopped eating when I started leaving for work."</h2>
+        <div class="mt-6 space-y-4 text-white/80 text-[16px] leading-relaxed">
+          <p class="text-yellow-300/80 italic text-sm bg-yellow-300/5 border-l-2 border-yellow-300/50 pl-4">[⚠ Ashok writes this himself, by hand, in his own voice. Sandy edits for typos only. NOT AI-generated. ~400 words. Hits: the moment he noticed something wrong → why existing cameras failed → the prototype journey → why this matters now.]</p>
+          <p>For now, placeholder copy: I built PawMe because I left my dog Cooper alone for ten hours one Tuesday and came home to a different dog. He'd stopped eating. He'd torn up the rug. The Furbo had recorded all of it — and done absolutely nothing.</p>
+          <p>That night I started sketching what eventually became PawMe. Two years later, after three prototypes, 42 vets reviewing every behavioral category, and 1,000 dogs and cats helping us train the AI, we have a robot that doesn't just watch — it acts. It learns your dog's normal. It catches the small changes early. It speaks your voice when they need it.</p>
+          <p>I'm not a marketer. I'm a dog parent who got tired of cameras pretending to be enough. If that resonates, back us. We'll build this together.</p>
+          <p class="font-bold">— Ashok</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Build strip -->
+    <div class="mt-24">
+      <div class="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <span class="eyebrow bg-white/10 text-brand-green">Behind the build</span>
+          <h3 class="mt-3 text-3xl sm:text-4xl font-black">Two years. Three prototypes.<br/>One obsession.</h3>
+        </div>
+        <p class="text-sm text-white/60 max-w-xs">Every PawMe is hand-assembled in TON Thrive's Shenzhen facility. Photos from the prototype build runs.</p>
+      </div>
+      <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="aspect-square rounded-xl placeholder placeholder-dark">[① Concept sketches]</div>
+        <div class="aspect-square rounded-xl placeholder placeholder-dark">[② Prototype 1 · 2024]</div>
+        <div class="aspect-square rounded-xl placeholder placeholder-dark">[③ Prototype 2 · 2025]</div>
+        <div class="aspect-square rounded-xl placeholder placeholder-dark">[④ TON Thrive line]</div>
+        <div class="aspect-square rounded-xl placeholder placeholder-dark">[⑤ Pet test 1,000+]</div>
+        <div class="aspect-square rounded-xl placeholder placeholder-dark">[⑥ Production unit]</div>
+      </div>
+    </div>
+
+    <!-- Team grid -->
+    <div class="mt-24">
+      <div class="flex items-end justify-between flex-wrap gap-4">
+        <div>
+          <span class="eyebrow bg-white/10 text-brand-green">The team</span>
+          <h3 class="mt-3 text-3xl sm:text-4xl font-black">Engineers, vets, and pet parents.</h3>
+        </div>
+        <p class="text-sm text-white/60 max-w-md">Verified credentials only — every team member is on LinkedIn, GitHub, or the DVM registry. We don't fake it.</p>
+      </div>
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-6 hover:bg-white/10 transition">
+          <div class="aspect-square rounded-xl bg-white/10 placeholder placeholder-dark mb-4">[Photo]</div>
+          <div class="font-extrabold text-lg">Ashok Jaiswal</div>
+          <div class="text-xs text-white/60 mt-1">Founder &amp; CEO</div>
+          <div class="text-xs text-white/40 mt-2">Ex-[verified background] · Hong Kong</div>
+        </div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-6 hover:bg-white/10 transition">
+          <div class="aspect-square rounded-xl bg-white/10 placeholder placeholder-dark mb-4">[Photo]</div>
+          <div class="font-extrabold text-lg">Prithu (TON Thrive)</div>
+          <div class="text-xs text-white/60 mt-1">Hardware lead</div>
+          <div class="text-xs text-white/40 mt-2">15 yrs robotics manufacturing · Shenzhen</div>
+        </div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-6 hover:bg-white/10 transition">
+          <div class="aspect-square rounded-xl bg-white/10 placeholder placeholder-dark mb-4">[Photo]</div>
+          <div class="font-extrabold text-lg">Dr. [Vet name], DVM</div>
+          <div class="text-xs text-white/60 mt-1">Veterinary advisor</div>
+          <div class="text-xs text-white/40 mt-2">Board-certified · Behavioral medicine</div>
+        </div>
+        <div class="rounded-2xl bg-white/5 border border-white/10 p-6 hover:bg-white/10 transition">
+          <div class="aspect-square rounded-xl bg-white/10 placeholder placeholder-dark mb-4">[Photo]</div>
+          <div class="font-extrabold text-lg">[AI advisor name]</div>
+          <div class="text-xs text-white/60 mt-1">AI / Behavioral ML</div>
+          <div class="text-xs text-white/40 mt-2">Ex-[verified] · Open-source contributor</div>
+        </div>
+      </div>
+      <p class="mt-6 text-xs text-yellow-300/70 italic">⚠ Names finalized by May 8 — verified LinkedIn / DVM-registry / GitHub before locking copy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §13 · PRICING TIERS                                                            -->
+<!-- ====================================================================== -->
+<section id="tiers" class="bg-gradient-to-b from-[#F0FDF8] to-white py-24">
+  <div class="bm-note"><strong>§13 PRICING ·</strong> Premium tier card design with product images, badges, claim bars, big pledge buttons. Bundle-math callouts ("save $49/unit"). Add-on grid below. First-time-backer reassurance card.</div>
+  <div class="mx-auto max-w-7xl px-5">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="eyebrow bg-brand-green/10 text-brand-green">Reward tiers</span>
+      <h2 class="mt-5 text-[40px] sm:text-[64px] font-black leading-[1.04] tracking-tight">Back PawMe before<br/><span class="gradient-text">the world does.</span></h2>
+      <p class="mt-5 text-slate-600 text-[17px]">Retail will be $399. Backers save up to 50%. Early-bird tiers are capped — first come, first served. <strong>$0 monthly fees</strong> on every tier, forever.</p>
+    </div>
+
+    <!-- 3 main tier cards -->
+    <div class="mt-14 grid lg:grid-cols-3 gap-6">
+      <!-- VIP -->
+      <div class="tier-card rounded-3xl bg-brand-deeper text-white p-8 shadow-cardHover relative overflow-hidden">
+        <div class="absolute top-0 right-0 bg-brand-green text-brand-deeper text-[10px] font-extrabold uppercase tracking-wider px-4 py-2 rounded-bl-2xl">⚡ Sells out fast</div>
+        <div class="mt-6 aspect-[4/3] rounded-2xl bg-white/5 placeholder placeholder-dark mb-6">[Product photo · cream finish]</div>
+        <div class="text-[10px] uppercase tracking-[0.22em] text-brand-green font-extrabold">VIP super-early bird</div>
+        <div class="mt-2 flex items-end gap-3">
+          <div class="text-6xl font-black big-num">$199</div>
+          <div class="text-sm line-through text-white/40 mb-2">$399</div>
+        </div>
+        <div class="text-[12px] text-brand-green font-bold mt-1">50% off retail · 500-unit cap</div>
+
+        <ul class="mt-5 space-y-2 text-sm text-white/85">
+          <li class="flex gap-2"><span class="text-brand-green">✓</span> 1× PawMe unit (cream or charcoal)</li>
+          <li class="flex gap-2"><span class="text-brand-green">✓</span> Charging dock + USB-C cable</li>
+          <li class="flex gap-2"><span class="text-brand-green">✓</span> Lifetime full AI features — $0 fees</li>
+          <li class="flex gap-2"><span class="text-brand-green">✓</span> Priority shipping (first wave Nov 2026)</li>
+          <li class="flex gap-2"><span class="text-brand-green">✓</span> Founders' Discord access</li>
+          <li class="flex gap-2"><span class="text-brand-green">✓</span> Vote on stretch-goal features</li>
+        </ul>
+
+        <div class="mt-6">
+          <div class="tier-claim-bar"><div style="width: 62%;"></div></div>
+          <div class="mt-2 text-[11px] text-white/60 flex justify-between"><span>309 of 500 claimed</span><span class="text-brand-green font-bold">191 left</span></div>
+        </div>
+        <button class="mt-5 w-full rounded-full bg-brand-green text-brand-deeper font-extrabold py-4">Pledge $199 →</button>
+      </div>
+
+      <!-- KS Early Bird (FEATURED) -->
+      <div class="tier-card rounded-3xl bg-white border-4 border-brand-blue p-8 shadow-cardHover relative overflow-hidden lg:scale-105 lg:-my-2">
+        <div class="absolute top-0 right-0 bg-brand-blue text-white text-[10px] font-extrabold uppercase tracking-wider px-4 py-2 rounded-bl-2xl">★ Most popular</div>
+        <div class="mt-6 aspect-[4/3] rounded-2xl bg-brand-offWhite placeholder mb-6">[Product photo · charcoal finish]</div>
+        <div class="text-[10px] uppercase tracking-[0.22em] text-brand-blue font-extrabold">Kickstarter early bird</div>
+        <div class="mt-2 flex items-end gap-3">
+          <div class="text-6xl font-black big-num text-brand-dark">$249</div>
+          <div class="text-sm line-through text-slate-400 mb-2">$399</div>
+        </div>
+        <div class="text-[12px] text-brand-blue font-bold mt-1">38% off retail · unlimited</div>
+
+        <ul class="mt-5 space-y-2 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="text-brand-blue font-black">✓</span> 1× PawMe unit (cream or charcoal)</li>
+          <li class="flex gap-2"><span class="text-brand-blue font-black">✓</span> Charging dock + USB-C cable</li>
+          <li class="flex gap-2"><span class="text-brand-blue font-black">✓</span> Lifetime full AI features — $0 fees</li>
+          <li class="flex gap-2"><span class="text-brand-blue font-black">✓</span> Standard shipping (Dec 2026)</li>
+        </ul>
+
+        <button class="mt-8 w-full rounded-full bg-primary-gradient text-white font-extrabold py-4 shadow-button">Pledge $249 →</button>
+      </div>
+
+      <!-- Dual Pack -->
+      <div class="tier-card rounded-3xl bg-white border border-slate-200 p-8 shadow-card relative overflow-hidden">
+        <div class="absolute top-0 right-0 bg-brand-orange text-white text-[10px] font-extrabold uppercase tracking-wider px-4 py-2 rounded-bl-2xl">💰 Save $49/unit</div>
+        <div class="mt-6 aspect-[4/3] rounded-2xl bg-brand-offWhite placeholder mb-6">[Product photo · 2× units · multi-pet home]</div>
+        <div class="text-[10px] uppercase tracking-[0.22em] text-brand-orange font-extrabold">Dual pack · multi-dog homes</div>
+        <div class="mt-2 flex items-end gap-3">
+          <div class="text-6xl font-black big-num text-brand-dark">$449</div>
+          <div class="text-sm line-through text-slate-400 mb-2">$798</div>
+        </div>
+        <div class="text-[12px] text-brand-orange font-bold mt-1">$224.50/unit · capped at 200</div>
+
+        <ul class="mt-5 space-y-2 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="text-brand-orange font-black">✓</span> 2× PawMe units</li>
+          <li class="flex gap-2"><span class="text-brand-orange font-black">✓</span> 2× docks + cables</li>
+          <li class="flex gap-2"><span class="text-brand-orange font-black">✓</span> Lifetime AI features on both units</li>
+          <li class="flex gap-2"><span class="text-brand-orange font-black">✓</span> Multi-pet mode at $300K stretch</li>
+        </ul>
+
+        <div class="mt-6">
+          <div class="tier-claim-bar"><div style="width: 24%;"></div></div>
+          <div class="mt-2 text-[11px] text-slate-500 flex justify-between"><span>48 of 200 claimed</span><span class="text-brand-orange font-bold">152 left</span></div>
+        </div>
+        <button class="mt-5 w-full rounded-full bg-brand-orange text-white font-extrabold py-4">Pledge $449 →</button>
+      </div>
+    </div>
+
+    <!-- Studio + Sticker + First-time backer -->
+    <div class="mt-6 grid md:grid-cols-3 gap-6">
+      <div class="tier-card rounded-3xl bg-white border border-slate-200 p-7 shadow-card relative">
+        <div class="absolute top-0 right-0 bg-brand-purple text-white text-[10px] font-extrabold uppercase tracking-wider px-4 py-2 rounded-bl-2xl">💰 Save $97/unit</div>
+        <div class="text-[10px] uppercase tracking-[0.22em] text-brand-purple font-extrabold">Studio · breeders / clinics</div>
+        <div class="mt-2 flex items-end gap-3">
+          <div class="text-5xl font-black big-num text-brand-dark">$899</div>
+          <div class="text-sm line-through text-slate-400 mb-1.5">$1,596</div>
+        </div>
+        <div class="text-[12px] text-brand-purple font-bold mt-1">$224.75/unit · capped at 50</div>
+        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
+          <li>✓ 4× PawMe units · 4× docks</li>
+          <li>✓ Pro multi-camera dashboard</li>
+          <li>✓ Direct line to support team</li>
+          <li>✓ Co-marketing with PawMe (kennels)</li>
+        </ul>
+        <button class="mt-5 w-full rounded-full bg-brand-purple text-white font-extrabold py-3">Pledge $899</button>
+      </div>
+
+      <div class="tier-card rounded-3xl bg-brand-cream border border-slate-200 p-7 shadow-card">
+        <div class="text-[10px] uppercase tracking-[0.22em] text-brand-orange font-extrabold">Just the sticker</div>
+        <div class="mt-2 text-5xl font-black big-num text-brand-dark">$5</div>
+        <div class="text-[12px] text-slate-500 mt-1">For supporters · unlimited</div>
+        <ul class="mt-4 space-y-1.5 text-sm text-slate-700">
+          <li>✓ 1× holographic PawMe sticker</li>
+          <li>✓ Founders' Discord access</li>
+          <li>✓ Our endless gratitude 💚</li>
+          <li>✓ Updates from the build journey</li>
+        </ul>
+        <button class="mt-5 w-full rounded-full bg-brand-dark text-white font-extrabold py-3">Pledge $5</button>
+      </div>
+
+      <div class="tier-card rounded-3xl bg-brand-blue/5 border border-brand-blue/20 p-7">
+        <div class="text-[10px] uppercase tracking-[0.22em] text-brand-blue font-extrabold">First time on Kickstarter?</div>
+        <h3 class="mt-2 text-xl font-black">Here's how this works.</h3>
+        <ol class="mt-4 space-y-2.5 text-sm text-slate-700">
+          <li class="flex gap-2"><span class="text-brand-blue font-black">①</span> Pick a tier — your card is <strong>not charged yet</strong>.</li>
+          <li class="flex gap-2"><span class="text-brand-blue font-black">②</span> If we hit our $5K goal by July 9, your card gets charged.</li>
+          <li class="flex gap-2"><span class="text-brand-blue font-black">③</span> You can change or cancel anytime through July 9.</li>
+          <li class="flex gap-2"><span class="text-brand-blue font-black">④</span> First units ship November 2026.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Add-ons -->
+    <div class="mt-20">
+      <div class="text-center max-w-2xl mx-auto">
+        <span class="eyebrow bg-slate-200 text-slate-700">Optional add-ons</span>
+        <h3 class="mt-4 text-3xl sm:text-4xl font-black leading-tight">Stack any of these onto your pledge.</h3>
+        <p class="mt-3 text-sm text-slate-600">Add-ons confirmed in the post-campaign Pledge Manager. No commitment now.</p>
+      </div>
+      <div class="mt-10 grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 text-center hover:shadow-cardHover transition">
+          <div class="aspect-square rounded-xl bg-brand-offWhite placeholder mb-3 text-xs">[Battery]</div>
+          <div class="text-xs uppercase font-extrabold text-slate-500">Add-on</div>
+          <div class="text-2xl font-black big-num">$19</div>
+          <div class="text-[12px] text-slate-600 mt-1">Replacement battery</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 text-center hover:shadow-cardHover transition">
+          <div class="aspect-square rounded-xl bg-brand-offWhite placeholder mb-3 text-xs">[Cartridge]</div>
+          <div class="text-xs uppercase font-extrabold text-slate-500">Add-on</div>
+          <div class="text-2xl font-black big-num">$12</div>
+          <div class="text-[12px] text-slate-600 mt-1">Treat cartridge</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 text-center hover:shadow-cardHover transition">
+          <div class="aspect-square rounded-xl bg-brand-offWhite placeholder mb-3 text-xs">[Skin]</div>
+          <div class="text-xs uppercase font-extrabold text-slate-500">Add-on</div>
+          <div class="text-2xl font-black big-num">$24</div>
+          <div class="text-[12px] text-slate-600 mt-1">Custom skin</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 text-center hover:shadow-cardHover transition">
+          <div class="aspect-square rounded-xl bg-brand-offWhite placeholder mb-3 text-xs">[Case]</div>
+          <div class="text-xs uppercase font-extrabold text-slate-500">Add-on</div>
+          <div class="text-2xl font-black big-num">$39</div>
+          <div class="text-[12px] text-slate-600 mt-1">Travel case</div>
+        </div>
+        <div class="rounded-2xl bg-white border border-slate-200 p-5 text-center hover:shadow-cardHover transition">
+          <div class="aspect-square rounded-xl bg-brand-offWhite placeholder mb-3 text-xs">[Warranty]</div>
+          <div class="text-xs uppercase font-extrabold text-slate-500">Add-on</div>
+          <div class="text-2xl font-black big-num">$25</div>
+          <div class="text-[12px] text-slate-600 mt-1">+1 yr warranty</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §14 · STRETCH GOALS — Visual roadmap                                          -->
+<!-- ====================================================================== -->
+<section class="bg-brand-deeper text-white py-24 relative overflow-hidden">
+  <div class="bm-note"><strong>§14 STRETCH GOALS ·</strong> Visual roadmap with milestone art previews. $300K Cat Pack / $400K Pet Recognition AI / $500K Open-Source SDK. True $250K target unspoken — visual progress drives mid-campaign momentum.</div>
+  <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px); background-size: 80px 80px;"></div>
+  <div class="relative mx-auto max-w-6xl px-5">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="eyebrow bg-white/10 text-brand-purple">Stretch goals</span>
+      <h2 class="mt-5 text-[40px] sm:text-[60px] font-black leading-[1.04] tracking-tight">Every milestone unlocks <span class="gradient-text">more PawMe.</span></h2>
+      <p class="mt-4 text-white/60">Each stretch goal goes live for every backer at every tier. No upgrades to buy.</p>
+    </div>
+
+    <!-- Milestone roadmap -->
+    <div class="mt-16 grid lg:grid-cols-4 gap-4 lg:gap-2">
+      <div class="rounded-2xl bg-brand-green/15 border-2 border-brand-green p-6 lg:p-7 relative">
+        <div class="absolute -top-3 left-6 bg-brand-green text-brand-deeper text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full">✓ Funded</div>
+        <div class="mt-4 text-4xl font-black big-num">$5K</div>
+        <h3 class="mt-2 text-lg font-black">PawMe ships</h3>
+        <p class="mt-2 text-sm text-white/70">First production run unlocked. We're going to manufacturing.</p>
+        <div class="mt-4 aspect-[4/3] rounded-xl bg-brand-green/10 flex items-center justify-center text-4xl">🎉</div>
+      </div>
+      <div class="rounded-2xl bg-brand-blue/15 border-2 border-brand-blue/40 p-6 lg:p-7 relative">
+        <div class="absolute -top-3 left-6 bg-brand-blue text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full">Stretch 1</div>
+        <div class="mt-4 text-4xl font-black big-num">$300K</div>
+        <h3 class="mt-2 text-lg font-black">🐈 Cat Pack</h3>
+        <p class="mt-2 text-sm text-white/70">Cat-specific accessories: laser-play attachment, cat-toy mode, low-noise paw guards. Every backer with a cat gets one free.</p>
+        <div class="mt-4 aspect-[4/3] rounded-xl bg-brand-blue/10 placeholder placeholder-dark">[Cat Pack illustration]</div>
+      </div>
+      <div class="rounded-2xl bg-brand-orange/15 border-2 border-brand-orange/40 p-6 lg:p-7 relative">
+        <div class="absolute -top-3 left-6 bg-brand-orange text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full">Stretch 2</div>
+        <div class="mt-4 text-4xl font-black big-num">$400K</div>
+        <h3 class="mt-2 text-lg font-black">🤖 Pet Recognition AI</h3>
+        <p class="mt-2 text-sm text-white/70">PawMe learns your dog's face — distinguishes them from siblings, neighbors, dog walkers. Personalized alerts only for your pet.</p>
+        <div class="mt-4 aspect-[4/3] rounded-xl bg-brand-orange/10 placeholder placeholder-dark">[Recognition AI mockup]</div>
+      </div>
+      <div class="rounded-2xl bg-brand-purple/15 border-2 border-brand-purple/40 p-6 lg:p-7 relative">
+        <div class="absolute -top-3 left-6 bg-brand-purple text-white text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full">Stretch 3 · The big one</div>
+        <div class="mt-4 text-4xl font-black big-num">$500K</div>
+        <h3 class="mt-2 text-lg font-black">⌨️ Open-Source SDK + Multi-Pet Mode</h3>
+        <p class="mt-2 text-sm text-white/70">Public SDK · Multi-pet household orchestration · Companion app v2. Build your own behaviors.</p>
+        <div class="mt-4 aspect-[4/3] rounded-xl bg-brand-purple/10 placeholder placeholder-dark">[SDK code preview]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §15 · TIMELINE                                                                  -->
+<!-- ====================================================================== -->
+<section class="bg-white py-24">
+  <div class="bm-note"><strong>§15 TIMELINE ·</strong> Specific months, NOT vague Q4. Cubie's playbook — backers reward courage on dates, punish vagueness in comments.</div>
+  <div class="mx-auto max-w-6xl px-5">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="eyebrow bg-slate-200 text-slate-700">Timeline</span>
+      <h2 class="mt-5 text-[36px] sm:text-[52px] font-black leading-[1.05] tracking-tight">From pledge to your couch in <span class="gradient-text">six months.</span></h2>
+    </div>
+    <!-- Visual roadmap -->
+    <div class="mt-16 relative">
+      <!-- Connector line -->
+      <div class="absolute top-12 left-0 right-0 hidden sm:block roadmap-path"></div>
+      <div class="grid sm:grid-cols-5 gap-4 relative">
+        <div class="bg-white rounded-2xl p-6 border-2 border-brand-green text-center relative">
+          <div class="w-8 h-8 rounded-full bg-brand-green text-white font-black flex items-center justify-center mx-auto -mt-12 border-4 border-white">1</div>
+          <div class="mt-3 text-xs font-extrabold text-brand-green uppercase tracking-wider">Now</div>
+          <div class="mt-1 text-3xl font-black big-num">Jun</div>
+          <div class="mt-2 text-xs text-slate-600">Campaign live · backers committing</div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 text-center relative">
+          <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-700 font-black flex items-center justify-center mx-auto -mt-12 border-4 border-white">2</div>
+          <div class="mt-3 text-xs font-extrabold text-slate-500 uppercase tracking-wider">Phase 2</div>
+          <div class="mt-1 text-3xl font-black big-num">Aug</div>
+          <div class="mt-2 text-xs text-slate-600">Manufacturing kickoff · TON Thrive</div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 text-center relative">
+          <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-700 font-black flex items-center justify-center mx-auto -mt-12 border-4 border-white">3</div>
+          <div class="mt-3 text-xs font-extrabold text-slate-500 uppercase tracking-wider">Phase 3</div>
+          <div class="mt-1 text-3xl font-black big-num">Sep–Oct</div>
+          <div class="mt-2 text-xs text-slate-600">QA, factory acceptance, packaging</div>
+        </div>
+        <div class="bg-brand-green text-white rounded-2xl p-6 text-center relative shadow-deepDark">
+          <div class="w-8 h-8 rounded-full bg-white text-brand-green font-black flex items-center justify-center mx-auto -mt-12 border-4 border-brand-green">★</div>
+          <div class="mt-3 text-xs font-extrabold opacity-90 uppercase tracking-wider">Ships</div>
+          <div class="mt-1 text-3xl font-black big-num">Nov</div>
+          <div class="mt-2 text-xs">First wave — VIP backers</div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 text-center relative">
+          <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-700 font-black flex items-center justify-center mx-auto -mt-12 border-4 border-white">5</div>
+          <div class="mt-3 text-xs font-extrabold text-slate-500 uppercase tracking-wider">Wave 2</div>
+          <div class="mt-1 text-3xl font-black big-num">Dec</div>
+          <div class="mt-2 text-xs text-slate-600">All Kickstarter early-bird backers</div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-10 text-center text-sm text-slate-500 italic max-w-2xl mx-auto">We're committing to November 2026 first-wave shipping. Every Kickstarter has surprises — we'll post twice-monthly production updates with photos and shipping numbers. Zero days padded to the timeline.</p>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §16 · RISKS                                                                    -->
+<!-- ====================================================================== -->
+<section class="bg-brand-offWhite py-20">
+  <div class="bm-note"><strong>§16 RISKS ·</strong> KS-mandatory. Brief. Reassuring. Reference Crowd Launches backing + TON Thrive partnership + prototype already built. Honesty wins backer trust.</div>
+  <div class="mx-auto max-w-4xl px-5">
+    <span class="eyebrow bg-brand-red/10 text-brand-red">Risks &amp; challenges</span>
+    <h2 class="mt-5 text-[32px] sm:text-[44px] font-black leading-[1.08] tracking-tight">What could go wrong — and what we're doing about it.</h2>
+    <div class="mt-8 space-y-5 text-slate-700 text-[15px] leading-relaxed">
+      <div class="rounded-xl bg-white border border-slate-200 p-6">
+        <div class="font-extrabold text-brand-dark">Manufacturing delays.</div>
+        <p class="mt-2">Hardware Kickstarters are notorious for slipping. We've mitigated by partnering with TON Thrive, who already built the prototype and have a confirmed factory line for August 2026. We've added a 30-day buffer to the November ship target.</p>
+      </div>
+      <div class="rounded-xl bg-white border border-slate-200 p-6">
+        <div class="font-extrabold text-brand-dark">Component shortages.</div>
+        <p class="mt-2">Our NPU and LiDAR sensors have alternate suppliers in line. Long-lead items pre-ordered as of April 2026.</p>
+      </div>
+      <div class="rounded-xl bg-white border border-slate-200 p-6">
+        <div class="font-extrabold text-brand-dark">Software polish.</div>
+        <p class="mt-2">The on-device behavioral AI improves with every firmware push. Day-one accuracy is the 94% baseline we trained on; we expect 97%+ within 6 months of live deployment. Updates ship free.</p>
+      </div>
+      <div class="rounded-xl bg-white border border-slate-200 p-6">
+        <div class="font-extrabold text-brand-dark">Funding.</div>
+        <p class="mt-2">PawMe is backed by <strong>Crowd Launches</strong> infrastructure — our Kickstarter campaign isn't the only capital behind this product. The team is shipping regardless of funding overshoot. Backer money goes to first production run + reward fulfillment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §17 · FAQ                                                                       -->
+<!-- ====================================================================== -->
+<section class="bg-white py-24">
+  <div class="bm-note"><strong>§17 FAQ ·</strong> 13 questions targeting Furbo/Loona/Petcube buyers + first-time Kickstarter backers. Expanding cards. First Q already open.</div>
+  <div class="mx-auto max-w-3xl px-5">
+    <div class="text-center">
+      <span class="eyebrow bg-brand-blue/10 text-brand-blue">FAQ</span>
+      <h2 class="mt-5 text-[36px] sm:text-[52px] font-black leading-[1.05] tracking-tight">Everything backers ask.</h2>
+    </div>
+    <div class="mt-12 space-y-3">
+      <details class="rounded-2xl bg-brand-offWhite p-6 group" open>
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Will my card be charged immediately?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">No. Kickstarter is all-or-nothing — your card is only charged if PawMe hits its $5K funding goal by July 9, 2026. You can adjust or cancel your pledge anytime before then.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Are there really no monthly fees?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">Correct. Every Kickstarter backer gets full AI features for life. We commit to this in writing in our Terms of Service. No upsells, no premium tier, no "AI features locked behind a subscription." When firmware updates ship, you get them free.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Will it work for cats?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">Yes. PawMe works with cats out of the box — same behavioral monitoring, same following. The Cat Pack stretch goal at $300K adds laser-play, cat-toy mode, and low-noise paw guards specific to cats.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Will my dog be scared of it?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">PawMe runs whisper-quiet wheels (under 35 dB — quieter than a refrigerator). Our 6-month pet-test program with 1,000+ dogs and cats showed 92% acclimated within 3 days. The onboarding mode introduces PawMe gradually, parking it stationary for the first 48 hours.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>How is this different from Furbo / Petcube / Loona?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">Furbo and Petcube are stationary cameras with treat-toss — they watch but don't follow, don't analyze behavior, and charge $7-13/mo for AI features. Loona moves but is a desk toy without behavioral AI. PawMe combines movement, behavioral health monitoring, two-way voice, on-device privacy, and open-source firmware — and never charges a monthly fee for backers. See the comparison table above for the full side-by-side.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Where do you ship?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">US, Canada, UK, EU, Australia, Hong Kong, Singapore. Other regions add $40 shipping. Customs/duties paid by backer (varies by country, typically $20-40).</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>What if it breaks?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">1-year warranty included. Add-on +1 yr available for $25. Replacement battery and parts available through our online store post-launch. Firmware bugs are fixed via OTA updates — free, forever.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Is the firmware really open source?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">Yes. MIT-licensed firmware on GitHub at launch (github.com/ayva-labs/pawme-firmware). You can fork, customize behaviors, and contribute back. Public Python SDK and REST API. The first hackable AI pet platform.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Is my dog's footage uploaded anywhere?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">No. All AI runs on-device. Footage is encrypted with your private key, owner-only, never reviewed by humans. You can optionally export specific clips to share with your vet — that's the only time anything leaves the device, and it's by your action.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Can I have more than one PawMe?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">Yes. The Dual Pack ($449, save $49/unit) and Studio Pack ($899, save $97/unit) support multi-unit households. The $300K stretch goal unlocks multi-pet orchestration so they coordinate following different pets.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>When will my unit ship?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">VIP super-early-bird backers ship in the first wave (November 2026). Kickstarter early-bird backers ship in the December wave. Studio packs ship January 2027 alongside the multi-camera dashboard rollout. Production updates posted twice monthly.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Can I cancel after the campaign?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">You can cancel or adjust your pledge anytime through July 9, 2026 (campaign close). After that, BackerKit handles changes through their pledge manager — typically open for 60 days post-close.</p>
+      </details>
+      <details class="rounded-2xl bg-brand-offWhite p-6 group">
+        <summary class="font-extrabold text-lg flex justify-between items-center"><span>Who are you?</span><span class="faq-toggle text-brand-blue text-2xl">+</span></summary>
+        <p class="mt-3 text-slate-600 text-sm leading-relaxed">Ayva Labs (Hong Kong), led by Ashok Jaiswal. Manufacturing partner: TON Thrive (Shenzhen). Marketing &amp; campaign infrastructure: Crowd Launches. Veterinary advisory: 42-DVM board. Find us at pawmebot.com.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- §18 · FINAL CTA                                                                -->
+<!-- ====================================================================== -->
+<section class="bg-brand-deeper text-white py-24 relative overflow-hidden">
+  <div class="bm-note"><strong>§18 FINAL CTA ·</strong> Massive headline + tier mini-grid + final pledge button. Scarcity-driven close ("309 of 500 VIP spots claimed").</div>
+  <img src="assets/images/bot-left.png" alt="" class="hidden lg:block absolute left-[-5%] bottom-[-10%] w-[28%] z-0 opacity-25"/>
+  <img src="assets/images/bot-right.png" alt="" class="hidden lg:block absolute right-[-5%] bottom-[-10%] w-[28%] z-0 opacity-25"/>
+
+  <div class="relative z-10 mx-auto max-w-4xl px-5 text-center">
+    <span class="eyebrow bg-white/10 text-brand-green">Last call</span>
+    <h2 class="mt-6 text-[44px] sm:text-[72px] font-black leading-[0.98] tracking-tight">
+      Be one of<br/><span class="gradient-text">the first 500.</span>
+    </h2>
+    <p class="mt-6 text-white/80 text-[18px] max-w-2xl mx-auto">309 of 500 VIP spots claimed. After this cap fills, the next price is $249. After Kickstarter closes, retail is $399. There won't be a third chance.</p>
+
+    <!-- Mini tier strip -->
+    <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto">
+      <div class="rounded-2xl bg-brand-green text-brand-deeper p-4">
+        <div class="text-[10px] uppercase tracking-wider font-extrabold opacity-80">Now</div>
+        <div class="text-2xl font-black big-num mt-1">$199</div>
+        <div class="text-[11px] mt-1">VIP · 191 left</div>
+      </div>
+      <div class="rounded-2xl bg-white/10 p-4">
+        <div class="text-[10px] uppercase tracking-wider font-extrabold opacity-70">Next</div>
+        <div class="text-2xl font-black big-num mt-1">$249</div>
+        <div class="text-[11px] mt-1">KS Early Bird</div>
+      </div>
+      <div class="rounded-2xl bg-white/5 p-4">
+        <div class="text-[10px] uppercase tracking-wider font-extrabold opacity-50">After</div>
+        <div class="text-2xl font-black big-num mt-1 line-through opacity-40">$399</div>
+        <div class="text-[11px] mt-1 opacity-50">Retail</div>
+      </div>
+      <div class="rounded-2xl bg-white/5 p-4">
+        <div class="text-[10px] uppercase tracking-wider font-extrabold opacity-50">5-yr cost</div>
+        <div class="text-2xl font-black big-num mt-1">$0/mo</div>
+        <div class="text-[11px] mt-1 opacity-70">vs Furbo $420</div>
+      </div>
+    </div>
+
+    <a href="#tiers" class="mt-12 inline-flex items-center gap-3 rounded-full bg-primary-gradient text-white font-extrabold px-12 py-6 shadow-button text-xl">Back PawMe — $199 →</a>
+    <p class="mt-5 text-xs text-white/50">Card only charged if we hit our $5K goal by July 9, 2026.</p>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- KS FOOTER                                                                       -->
+<!-- ====================================================================== -->
+<footer class="bg-brand-deeper text-white/60 py-12 border-t border-white/10 text-sm">
+  <div class="mx-auto max-w-7xl px-5 grid sm:grid-cols-3 gap-8">
+    <div>
+      <div class="font-black text-white text-lg">PawMe</div>
+      <div class="text-xs mt-2 leading-relaxed">By Ayva Labs · Hong Kong<br/>Built with TON Thrive · Backed by Crowd Launches</div>
+    </div>
+    <div class="text-center">
+      <div class="text-xs">© 2026 Ayva Labs · Kickstarter Project<br/>Technology → Hardware</div>
+    </div>
+    <div class="sm:text-right">
+      <div class="text-xs">Need help? <a class="text-brand-green underline">support@pawmebot.com</a><br/>Find us at <a class="text-brand-green underline">pawmebot.com</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ====================================================================== -->
+<!-- MOBILE STICKY CTA                                                                -->
+<!-- ====================================================================== -->
+<div class="fixed bottom-0 inset-x-0 z-50 bg-white border-t border-slate-200 p-3 lg:hidden shadow-cardHover">
+  <div class="flex items-center gap-3">
+    <div class="flex-1">
+      <div class="text-[10px] uppercase tracking-wider text-brand-ks font-extrabold">285% funded</div>
+      <div class="text-sm font-black">87 backers · 29 days left</div>
+    </div>
+    <a href="#tiers" class="rounded-full bg-brand-ks text-white font-extrabold px-5 py-3 text-sm whitespace-nowrap">Back this</a>
+  </div>
+</div>
+
+</body>
+</html>
