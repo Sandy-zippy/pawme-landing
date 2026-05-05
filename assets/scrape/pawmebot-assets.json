@@ -1,0 +1,295 @@
+{
+  "imageCount": 8,
+  "images": [
+    {
+      "src": "https://framerusercontent.com/images/BvRNoxE7F5tUkWAxv9xHlQQQNX0.png?width=470&height=567",
+      "alt": "PawMe Bot Left",
+      "w": 470,
+      "h": 567,
+      "rect": {
+        "x": 0,
+        "y": 315,
+        "width": 410.3125,
+        "height": 495,
+        "top": 315,
+        "right": 410.3125,
+        "bottom": 810,
+        "left": 0
+      }
+    },
+    {
+      "src": "https://framerusercontent.com/images/3Lay47GT3zZhebmyiceFUuZFJo.png?width=470&height=567",
+      "alt": "PawMe Bot Right",
+      "w": 470,
+      "h": 567,
+      "rect": {
+        "x": 1029.6875,
+        "y": 315,
+        "width": 410.3125,
+        "height": 495,
+        "top": 315,
+        "right": 1440,
+        "bottom": 810,
+        "left": 1029.6875
+      }
+    },
+    {
+      "src": "https://framerusercontent.com/images/YNvBp5pnTcrpe1Vp49h1wViZQ.png?width=3712&height=4608",
+      "alt": "Pet portrait",
+      "w": 3712,
+      "h": 4608,
+      "rect": {
+        "x": 290.6344909667969,
+        "y": 594.7345581054688,
+        "width": 184.64047241210938,
+        "height": 184.64044189453125,
+        "top": 594.7345581054688,
+        "right": 475.27496337890625,
+        "bottom": 779.375,
+        "left": 290.6344909667969
+      }
+    },
+    {
+      "src": "https://framerusercontent.com/images/GLhwTjm3mA00lmJgmde5wLdIO8.png?width=3712&height=4608",
+      "alt": "Pet portrait",
+      "w": 3712,
+      "h": 4608,
+      "rect": {
+        "x": 519.0426635742188,
+        "y": 597.3694458007812,
+        "width": 179.309814453125,
+        "height": 179.30987548828125,
+        "top": 597.3694458007812,
+        "right": 698.3524780273438,
+        "bottom": 776.6793212890625,
+        "left": 519.0426635742188
+      }
+    },
+    {
+      "src": "https://framerusercontent.com/images/jKXuDDscgZZhNqHrkBfnD5G6w80.png?width=3712&height=4608",
+      "alt": "Pet portrait",
+      "w": 3712,
+      "h": 4608,
+      "rect": {
+        "x": 741.6475219726562,
+        "y": 597.3694458007812,
+        "width": 179.309814453125,
+        "height": 179.30987548828125,
+        "top": 597.3694458007812,
+        "right": 920.9573364257812,
+        "bottom": 776.6793212890625,
+        "left": 741.6475219726562
+      }
+    },
+    {
+      "src": "https://framerusercontent.com/images/Hx9AAkfQGBaaYNz9mEQOc9bqDE.png?width=3712&height=4608",
+      "alt": "Pet portrait",
+      "w": 3712,
+      "h": 4608,
+      "rect": {
+        "x": 965.8701171875,
+        "y": 596.03662109375,
+        "width": 182.0029296875,
+        "height": 182.00286865234375,
+        "top": 596.03662109375,
+        "right": 1147.873046875,
+        "bottom": 778.0394897460938,
+        "left": 965.8701171875
+      }
+    },
+    {
+      "src": "https://framerusercontent.com/images/ZthgkiABOgnD4JRaTKEbOIHp1U.png?width=946&height=2048",
+      "alt": "PawMe App",
+      "w": 946,
+      "h": 2048,
+      "rect": {
+        "x": 182,
+        "y": 5601.9453125,
+        "width": 276,
+        "height": 576,
+        "top": 5601.9453125,
+        "right": 458,
+        "bottom": 6177.9453125,
+        "left": 182
+      }
+    },
+    {
+      "src": "https://framerusercontent.com/images/sujtdU2hX9wDQkKKYj1nAok.png?width=3712&height=4608",
+      "alt": "Ashok",
+      "w": 3712,
+      "h": 4608,
+      "rect": {
+        "x": 368,
+        "y": 6478.7421875,
+        "width": 140,
+        "height": 140,
+        "top": 6478.7421875,
+        "right": 508,
+        "bottom": 6618.7421875,
+        "left": 368
+      }
+    }
+  ],
+  "videos": [
+    {
+      "src": "https://framerusercontent.com/assets/MnjiVcLISK1Yr2dbhRXkG2YV8.mp4",
+      "poster": "",
+      "sources": []
+    }
+  ],
+  "bgImageSamples": [],
+  "fonts": [
+    {
+      "family": "Nunito",
+      "weight": "400",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "400",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "400",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "400",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "400",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "600",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "600",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "600",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "600",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "600",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "700",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "700",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "700",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "700",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "700",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "800",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "800",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "800",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "800",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "800",
+      "style": "normal",
+      "status": "loaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "900",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "900",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "900",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "900",
+      "style": "normal",
+      "status": "unloaded"
+    },
+    {
+      "family": "Nunito",
+      "weight": "900",
+      "style": "normal",
+      "status": "loaded"
+    }
+  ],
+  "title": "PawMe — The AI Pet Camera That Follows Your Pet Room to Room",
+  "metaDescription": "PawMe is the first pet camera that moves with your dog or cat. AI-powered tracking, two-way audio, night vision, and health alerts — all from your phone. Join the waitlist and lock in 50% off before we launch on Kickstarter."
+}
