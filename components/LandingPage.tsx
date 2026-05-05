@@ -99,7 +99,29 @@ const ScribbleUnderline = ({ className = "" }: { className?: string }) => (
 );
 
 // ============================================================================
-// HERO — matches pawmebot.com exactly: no nav, big flanking bots, polaroids, scribble
+// STICKY NAV — matches updated live site
+// ============================================================================
+function StickyNav({ onCtaClick }: { onCtaClick: () => void }) {
+  return (
+    <header className="fixed inset-x-0 top-0 z-40 backdrop-blur-md bg-white/85 border-b border-slate-100/80">
+      <div className="mx-auto flex h-[68px] w-full max-w-7xl items-center justify-between px-5 sm:px-8">
+        <a href="#top" className="flex items-center" aria-label="PawMe">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/images/pawme-logo.png" alt="PawMe" className="h-8 sm:h-9 w-auto select-none" />
+        </a>
+        <button
+          onClick={onCtaClick}
+          className="rounded-full bg-primary-gradient px-4 sm:px-7 py-2.5 sm:py-3 text-[12px] sm:text-[14px] font-extrabold text-white shadow-button whitespace-nowrap font-heading"
+        >
+          Claim Your VIP Spot for $1
+        </button>
+      </div>
+    </header>
+  );
+}
+
+// ============================================================================
+// HERO — matches pawmebot.com exactly: big flanking bots, polaroids, scribble
 // ============================================================================
 function Hero({ onCtaClick }: { onCtaClick: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -108,13 +130,12 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
   const botYR = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   return (
-    <section ref={ref} className="relative isolate overflow-hidden bg-gradient-to-b from-white via-[#F5FBFB] to-[#EFF8F4]">
+    <section id="top" ref={ref} className="relative isolate overflow-hidden bg-gradient-to-b from-white via-[#F5FBFB] to-[#EFF8F4] pt-[68px]">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(4,218,141,0.10),transparent_70%)] pointer-events-none" />
 
-      {/* Decorative stars */}
-      <StarOutline size={45} color="#8E54E9" className="absolute top-[12%] left-[18%] sm:left-[22%] z-[5] hidden sm:block" />
-      <StarOutline size={32} color="#0085FF" className="absolute top-[14%] right-[20%] sm:right-[22%] z-[5] hidden sm:block" />
-      <StarOutline size={22} color="#04DA8D" className="absolute top-[6%] right-[10%] sm:right-[8%] z-[5] hidden sm:block" />
+      {/* Decorative stars — matched to live site exactly: 2 stars only */}
+      <StarOutline size={54} color="#8E54E9" className="absolute top-[10%] left-[25%] z-[5]" />
+      <StarOutline size={39} color="#0085FF" className="absolute top-[14%] right-[25%] z-[5]" />
 
       {/* Flanking bots — desktop: huge, beside; mobile: smaller, behind */}
       <motion.div
@@ -200,23 +221,31 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
 }
 
 // ============================================================================
-// MEET PAWME (dark, with hero video)
+// MEET PAWME — full-bleed video, text overlay at bottom (matches live site)
 // ============================================================================
 function MeetPawMe() {
   return (
-    <section className="relative overflow-hidden bg-brand-dark py-16 sm:py-24">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(4,218,141,0.18)_0%,transparent_55%)]" />
-      <div className="relative mx-auto max-w-5xl px-5 sm:px-8 text-center">
+    <section className="relative overflow-hidden bg-brand-dark h-[80vh] sm:h-screen min-h-[540px]">
+      {/* Full-bleed background video */}
+      <video
+        src="/assets/video/meet-pawme.mp4"
+        autoPlay muted loop playsInline
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      {/* Bottom gradient for text legibility */}
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+      {/* Top gradient blends with sticky nav */}
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/30 to-transparent" />
+
+      {/* Overlay headline */}
+      <div className="absolute inset-x-0 bottom-0 px-5 sm:px-8 pb-12 sm:pb-20 text-center">
         <FadeIn>
-          <h2 className="font-heading text-[34px] sm:text-[56px] font-black tracking-tight text-white">Meet PawMe</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-[15px] sm:text-[18px] leading-relaxed text-white/60">
+          <h2 className="font-heading text-[36px] sm:text-[64px] font-black tracking-tight text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+            Meet PawMe
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-[15px] sm:text-[18px] leading-relaxed text-white/85 drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
             The AI companion that follows your pet from room to room — so they're never truly alone.
           </p>
-        </FadeIn>
-        <FadeIn delay={0.1}>
-          <div className="relative mx-auto mt-9 sm:mt-12 aspect-video w-full max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-black shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
-            <video src="/assets/video/meet-pawme.mp4" autoPlay muted loop playsInline className="h-full w-full object-cover" />
-          </div>
         </FadeIn>
       </div>
     </section>
@@ -748,6 +777,7 @@ export default function LandingPage() {
   const open = () => setGateOpen(true);
   return (
     <main className="min-h-screen bg-white text-brand-dark">
+      <StickyNav onCtaClick={open} />
       <Hero onCtaClick={open} />
       <MeetPawMe />
       <Problem />

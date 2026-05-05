@@ -4,7 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CameraIcon, BellIcon, HeartIcon, BrainIcon, ChartIcon, CheckIcon } from "./icons";
 
-type Event = { id: string; icon: React.ReactNode; tag: string; title: string; body: string; tone: "good" | "info" | "alert" };
+type Tone = "good" | "info" | "alert";
+type Event = { id: string; icon: React.ReactNode; tag: string; title: string; body: string; tone: Tone };
 
 const POOL: Omit<Event, "id">[] = [
   { icon: <CheckIcon size={16} color="#04DA8D" />, tag: "Calm", title: "Buddy resting in living room", body: "Anxiety level: 12 — well below baseline.", tone: "good" },
@@ -16,23 +17,32 @@ const POOL: Omit<Event, "id">[] = [
   { icon: <CameraIcon size={16} color="#0085FF" />, tag: "Live", title: "HD stream active in bedroom", body: "Two-way audio enabled.", tone: "info" },
 ];
 
-function newEvent(): Event {
-  const e = POOL[Math.floor(Math.random() * POOL.length)];
-  return { ...e, id: Math.random().toString(36).slice(2) };
+const TONE_BG: Record<Tone, string> = {
+  good: "bg-brand-green/[0.07] ring-brand-green/25",
+  info: "bg-brand-blue/[0.06] ring-brand-blue/25",
+  alert: "bg-brand-orange/[0.07] ring-brand-orange/30",
+};
+
+// Pre-pick deterministic initial events so server + client HTML match.
+const INITIAL: Event[] = [
+  { ...POOL[0], id: "ev1" },
+  { ...POOL[2], id: "ev2" },
+  { ...POOL[4], id: "ev3" },
+  { ...POOL[5], id: "ev4" },
+];
+
+function nextEvent(index: number): Event {
+  const item = POOL[index % POOL.length];
+  return { ...item, id: `ev-${Date.now()}-${index}` };
 }
 
-// Deterministic initial state — same on server + client to avoid hydration mismatch.
-const INITIAL_IDS = ["ev1", "ev2", "ev3"];
-const initialEvents = (): Event[] => INITIAL_IDS.map((id, i) => ({ ...POOL[i % POOL.length], id }));
-
 export default function LiveFeed() {
-  const [items, setItems] = useState<Event[]>(initialEvents);
+  const [items, setItems] = useState<Event[]>(INITIAL);
   const [time, setTime] = useState<string>("");
-  const [hydrated, setHydrated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const counter = useRef(INITIAL.length);
 
   useEffect(() => {
-    setHydrated(true);
     setTime(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
     const tick = setInterval(() => {
       setTime(new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
@@ -45,57 +55,66 @@ export default function LiveFeed() {
 
     const interval = setInterval(() => {
       if (!mounted || !visible) return;
-      setItems((prev) => [newEvent(), ...prev].slice(0, 4));
-    }, 2400);
+      setItems((prev) => {
+        const next = nextEvent(counter.current++);
+        return [next, ...prev].slice(0, 4);
+      });
+    }, 2800);
+
     return () => { mounted = false; clearInterval(interval); clearInterval(tick); obs.disconnect(); };
   }, []);
 
-  const toneRing = (tone: Event["tone"]) => ({
-    good: "ring-1 ring-brand-green/20 bg-brand-green/[0.06]",
-    info: "ring-1 ring-brand-blue/15 bg-brand-blue/[0.04]",
-    alert: "ring-1 ring-brand-orange/20 bg-brand-orange/[0.05]",
-  }[tone]);
-
   return (
-    <div ref={ref} className="relative mx-auto w-full max-w-sm overflow-hidden rounded-3xl border border-white/10 bg-brand-dark p-4 sm:p-5 shadow-[0_30px_80px_rgba(0,0,0,0.35)]">
+    <div
+      ref={ref}
+      className="relative mx-auto w-full max-w-sm rounded-[28px] border border-white/10 bg-brand-dark p-4 sm:p-5 shadow-[0_30px_80px_rgba(0,0,0,0.35)]"
+    >
       {/* Status bar */}
-      <div className="flex items-center justify-between text-[11px] text-white/60 pb-3 mb-2 border-b border-white/5">
-        <span className="flex items-center gap-2 font-bold">
+      <div className="mb-3 flex items-center justify-between border-b border-white/[0.07] pb-3 text-[11px] font-bold text-white/70">
+        <span className="inline-flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-green opacity-60" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand-green" />
           </span>
           LIVE — Buddy at home
         </span>
-        <span suppressHydrationWarning>{time}</span>
+        <span suppressHydrationWarning className="font-mono text-white/45">{time || "—"}</span>
       </div>
 
-      <AnimatePresence initial={false}>
-        {items.map((it, i) => (
-          <motion.div
-            key={it.id}
-            layout
-            initial={{ opacity: 0, y: -16, scale: 0.96 }}
-            animate={{ opacity: 1 - i * 0.18, y: 0, scale: 1 - i * 0.02 }}
-            exit={{ opacity: 0, y: 24, scale: 0.94 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className={`mt-2 first:mt-0 flex items-start gap-3 rounded-2xl p-3 sm:p-3.5 ${toneRing(it.tone)} bg-white/[0.04] backdrop-blur-sm`}
-          >
-            <span className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-xl bg-white/10">{it.icon}</span>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-white/50">{it.tag}</span>
-                <span className="h-1 w-1 rounded-full bg-white/20" />
-                <span className="text-[10px] text-white/40">just now</span>
+      {/* Fixed-height feed area to prevent layout shift */}
+      <div className="relative h-[372px] overflow-hidden">
+        <AnimatePresence initial={false}>
+          {items.map((it) => (
+            <motion.div
+              key={it.id}
+              layout
+              initial={{ opacity: 0, y: -32, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.25 } }}
+              transition={{ type: "spring", damping: 24, stiffness: 240 }}
+              className={`mb-2.5 flex items-start gap-3 rounded-2xl p-3 sm:p-3.5 ring-1 ${TONE_BG[it.tone]} backdrop-blur-sm`}
+            >
+              <span className="grid h-9 w-9 flex-shrink-0 place-items-center rounded-xl bg-white/[0.08]">
+                {it.icon}
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-wider">
+                  <span className="text-white/60">{it.tag}</span>
+                  <span className="h-1 w-1 rounded-full bg-white/25" />
+                  <span className="text-white/40">just now</span>
+                </div>
+                <div className="mt-0.5 truncate text-[13.5px] font-bold text-white">{it.title}</div>
+                <div className="mt-0.5 truncate text-[11.5px] text-white/55">{it.body}</div>
               </div>
-              <div className="mt-0.5 truncate text-[13.5px] font-bold text-white">{it.title}</div>
-              <div className="mt-0.5 text-[11.5px] text-white/55 line-clamp-1">{it.body}</div>
-            </div>
-          </motion.div>
-        ))}
-      </AnimatePresence>
+            </motion.div>
+          ))}
+        </AnimatePresence>
 
-      <div className="mt-3 pt-3 border-t border-white/5 flex items-center justify-between text-[11px]">
+        {/* Soft fade at bottom edge so the cycling card animates out cleanly */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-brand-dark to-transparent" />
+      </div>
+
+      <div className="mt-3 flex items-center justify-between border-t border-white/[0.07] pt-3 text-[11px]">
         <span className="text-white/40">PawMe iOS · v1.0</span>
         <span className="font-bold text-brand-green">All systems calm</span>
       </div>
