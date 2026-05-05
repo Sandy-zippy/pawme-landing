@@ -39,18 +39,18 @@ export default function KickstarterBar({
     <section ref={ref} className="bg-white py-12 sm:py-16">
       <div className="mx-auto max-w-4xl px-5 sm:px-8">
         <div className="rounded-3xl border border-slate-100 bg-gradient-to-br from-white to-[#F0FDF8] p-6 sm:p-8 shadow-card">
-          <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full bg-brand-green/10 px-3 py-1 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em] text-brand-green">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-green opacity-70" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-green" />
-                </span>
-                Kickstarter · {daysToLaunch}
+          {/* Mobile: pill on its own row, label + progress % on a second row.
+              Desktop: pill + label on left, progress % on right. */}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:justify-between">
+            <span className="inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-brand-green/10 px-3 py-1 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-brand-green whitespace-nowrap">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-green opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-green" />
               </span>
-              <span className="text-[11px] sm:text-[12px] font-bold text-slate-500">{label}</span>
-            </div>
-            <div className="text-[11px] sm:text-[13px] font-bold text-brand-green">{pct}% to goal</div>
+              Kickstarter · {daysToLaunch}
+            </span>
+            <span className="text-[11px] sm:text-[12px] font-bold text-slate-500">{label}</span>
+            <span className="ml-auto text-[11px] sm:text-[13px] font-bold text-brand-green whitespace-nowrap">{pct}% to goal</span>
           </div>
 
           {/* Progress bar */}

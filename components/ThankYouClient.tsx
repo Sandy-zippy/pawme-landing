@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CheckIcon, BrainIcon, CameraIcon, BellIcon, HeartIcon } from "./icons";
 import { siteConfig } from "@/lib/siteConfig";
+import { withBase } from "@/lib/withBase";
 import { trackPurchase } from "./Tracking";
 
 const CrownIcon = ({ size = 14, color = "#04DA8D" }: { size?: number; color?: string }) => (
@@ -145,9 +146,43 @@ export default function ThankYouClient() {
             transition={{ delay: 0.25 }}
             className="mx-auto mt-5 max-w-xl text-[15px] sm:text-[16.5px] leading-relaxed text-white/65"
           >
-            Your $1 VIP reservation is confirmed. You've locked in the <span className="font-extrabold text-white">${siteConfig.pricing.vip.total} VIP price</span> ({siteConfig.pricing.vip.off} off ${siteConfig.pricing.vip.retail} retail), first-batch shipping, and a free charging dock. The remaining $198 is only charged when our Kickstarter goes live in Q2 2026.
+            Your $1 VIP reservation is confirmed. You've locked in the <span className="font-extrabold text-white">${siteConfig.pricing.vip.total} VIP price</span> ({siteConfig.pricing.vip.off} · ${siteConfig.pricing.vip.retail} retail), first-batch shipping, and a free charging dock. The remaining $198 is only charged when our Kickstarter goes live in Q2 2026.
           </motion.p>
         </div>
+
+        {/* Wakeup video — your PawMe coming online */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mx-auto mt-12 sm:mt-14 w-full max-w-[320px] sm:max-w-[380px]"
+        >
+          <div className="text-center mb-3">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.05] px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-white/60 ring-1 ring-white/10">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-green opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-green" />
+              </span>
+              Live · Your unit is reserved
+            </span>
+          </div>
+          <div className="relative aspect-[9/16] overflow-hidden rounded-[28px] border border-white/10 bg-black shadow-[0_30px_80px_rgba(4,218,141,0.12),0_0_0_1px_rgba(255,255,255,0.04)]">
+            <video
+              src={withBase("/assets/video/pawme-wakeup.mp4")}
+              autoPlay muted loop playsInline
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 text-center">
+              <div className="font-heading text-[15px] sm:text-[17px] font-extrabold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                Your PawMe is waking up.
+              </div>
+              <div className="mt-1 text-[11px] sm:text-[12px] text-white/70">
+                Hand-built · Vet-tested · Shipping Q4 2026
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Timeline */}
         <motion.div
@@ -228,18 +263,21 @@ export default function ThankYouClient() {
             <h3 className="mt-3 font-heading text-[20px] sm:text-[22px] font-extrabold text-white">Your VIP Reservation Summary</h3>
           </div>
 
-          <div className="mt-6 divide-y divide-white/[0.06] text-[14.5px]">
+          <div className="mt-6 divide-y divide-white/[0.06] text-[13.5px] sm:text-[14.5px]">
             {[
-              { k: "VIP Price", v: <><span className="font-extrabold text-brand-green">${siteConfig.pricing.vip.total}</span> <span className="text-white/40 text-[12px] ml-1">({siteConfig.pricing.vip.off} off ${siteConfig.pricing.vip.retail} retail)</span></> },
+              { k: "VIP Price", v: <span className="font-extrabold text-brand-green">${siteConfig.pricing.vip.total}</span>, sub: <>{siteConfig.pricing.vip.off} · ${siteConfig.pricing.vip.retail} retail</> },
               { k: "Paid Today", v: <span className="font-extrabold text-brand-green">$1</span> },
-              { k: "Due at Kickstarter launch (Q2 2026)", v: <span className="font-extrabold text-brand-green">${siteConfig.pricing.vip.total - 1}</span> },
-              { k: "Charging Dock", v: <><span className="font-extrabold text-brand-green">Free</span> <span className="text-white/40 text-[12px] ml-1">($49 value included)</span></> },
+              { k: "Due at Kickstarter launch", v: <span className="font-extrabold text-brand-green">${siteConfig.pricing.vip.total - 1}</span>, sub: "Q2 2026" },
+              { k: "Charging Dock", v: <span className="font-extrabold text-brand-green">Free</span>, sub: "$49 value included" },
               { k: "Shipping Priority", v: <span className="font-extrabold text-brand-green">First Batch</span> },
-              { k: "Refund Policy", v: <><span className="font-extrabold text-brand-green">100% Refundable</span> <span className="text-white/40 text-[12px] ml-1">Cancel anytime</span></> },
+              { k: "Refund Policy", v: <span className="font-extrabold text-brand-green">100% Refundable</span>, sub: "Cancel anytime" },
             ].map((row, i) => (
-              <div key={i} className="flex items-center justify-between py-3 sm:py-3.5">
-                <span className="text-white/60">{row.k}</span>
-                <span>{row.v}</span>
+              <div key={i} className="flex items-start justify-between gap-3 py-3 sm:py-3.5">
+                <span className="text-white/60 flex-shrink-0">{row.k}</span>
+                <span className="text-right">
+                  {row.v}
+                  {row.sub && <span className="block text-white/40 text-[11px] sm:text-[12px] mt-0.5">{row.sub}</span>}
+                </span>
               </div>
             ))}
           </div>
@@ -257,7 +295,7 @@ export default function ThankYouClient() {
           </p>
           <div className="mt-5 flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/images/founder-ashok.png" alt="" className="h-10 w-10 rounded-full object-cover" />
+            <img src={withBase("/assets/images/founder-with-dog.jpg")} alt="" className="h-10 w-10 rounded-full object-cover" />
             <div>
               <div className="font-heading text-[14px] font-extrabold text-white">The PawMe Team</div>
               <div className="text-[12.5px] text-white/50">Founders &amp; fellow pet parents</div>
@@ -269,7 +307,7 @@ export default function ThankYouClient() {
         <div className="mt-12 sm:mt-14 border-t border-white/[0.06] pt-8 text-center">
           <div className="flex items-center justify-center gap-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/assets/images/pawme-logo.png" alt="PawMe" className="h-7 w-auto opacity-90" />
+            <img src={withBase("/assets/images/pawme-logo.png")} alt="PawMe" className="h-7 w-auto opacity-90" />
           </div>
           <p className="mt-3 text-[13px] text-white/45">Questions about your VIP reservation? We're here for you.</p>
           <a href={`mailto:${siteConfig.supportEmail}`} className="mt-1.5 inline-block font-extrabold text-brand-green hover:underline">

@@ -7,6 +7,7 @@ import LiveFeed from "./LiveFeed";
 import CountUp from "./CountUp";
 import KickstarterBar from "./KickstarterBar";
 import { siteConfig } from "@/lib/siteConfig";
+import { withBase } from "@/lib/withBase";
 import {
   PawIcon, HeartIcon, ShieldIcon, CameraIcon, BellIcon, ClockIcon,
   CheckIcon, XIcon, SparkleIcon, ChartIcon, BrainIcon,
@@ -107,7 +108,7 @@ function StickyNav({ onCtaClick }: { onCtaClick: () => void }) {
       <div className="mx-auto flex h-[64px] sm:h-[68px] w-full max-w-7xl items-center justify-between px-4 sm:px-8">
         <a href="#top" className="flex items-center" aria-label="PawMe">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/images/pawme-logo.png" alt="PawMe" className="h-7 sm:h-9 w-auto select-none" />
+          <img src={withBase("/assets/images/pawme-logo.png")} alt="PawMe" className="h-7 sm:h-9 w-auto select-none" />
         </a>
         <button
           onClick={onCtaClick}
@@ -151,7 +152,7 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
         className="pointer-events-none absolute left-[-8%] sm:left-[-2%] lg:left-[1%] bottom-[-5%] sm:bottom-[-8%] z-0 w-[58%] sm:w-[40%] lg:w-[32%] opacity-90"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/images/bot-left.png" alt="" className="w-full select-none drop-shadow-2xl" />
+        <img src={withBase("/assets/images/bot-left.png")} alt="" className="w-full select-none drop-shadow-2xl" />
       </motion.div>
       <motion.div
         style={{ y: botYR }}
@@ -160,7 +161,7 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
         className="pointer-events-none absolute right-[-8%] sm:right-[-2%] lg:right-[1%] bottom-[-5%] sm:bottom-[-8%] z-0 w-[58%] sm:w-[40%] lg:w-[32%] opacity-90"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/assets/images/bot-right.png" alt="" className="w-full select-none drop-shadow-2xl" />
+        <img src={withBase("/assets/images/bot-right.png")} alt="" className="w-full select-none drop-shadow-2xl" />
       </motion.div>
 
       <div className="relative z-10 mx-auto w-full max-w-5xl px-5 sm:px-8 pt-12 pb-[60vw] sm:pt-20 sm:pb-[28%] lg:pb-[24%]">
@@ -214,7 +215,7 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
                     style={{ transform: `rotate(${tilt}deg)` }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/assets/images/portrait-${i}.png`} alt="Pet portrait" className="aspect-square w-full rounded-lg object-cover" />
+                    <img src={withBase(`/assets/images/portrait-${i}.png`)} alt="Pet portrait" className="aspect-square w-full rounded-lg object-cover" />
                   </motion.div>
                 );
               })}
@@ -234,7 +235,7 @@ function MeetPawMe() {
     <section className="relative overflow-hidden bg-brand-dark h-[80vh] sm:h-screen min-h-[540px]">
       {/* Full-bleed background video */}
       <video
-        src="/assets/video/meet-pawme.mp4"
+        src={withBase("/assets/video/meet-pawme.mp4")}
         autoPlay muted loop playsInline
         className="absolute inset-0 h-full w-full object-cover"
       />
@@ -343,7 +344,7 @@ function Solution() {
           <FadeIn><SectionTag color="green">The Solution</SectionTag></FadeIn>
           <FadeIn delay={0.05}>
             <h2 className="mt-4 font-heading text-[30px] sm:text-[48px] font-black leading-[1.1] tracking-tight text-brand-dark">
-              What if you never had to worry<br className="hidden sm:block" />
+              What if you never had to worry{" "}<br className="hidden sm:block" />
               about leaving them alone?
             </h2>
           </FadeIn>
@@ -388,7 +389,7 @@ function Features() {
         <div className="text-center">
           <FadeIn>
             <h2 className="font-heading text-[28px] sm:text-[44px] font-black leading-[1.1] tracking-tight text-brand-dark">
-              Everything your pet needs.<br className="hidden sm:block" />
+              Everything your pet needs.{" "}<br className="hidden sm:block" />
               <span className="bg-primary-gradient bg-clip-text text-transparent">Everything you've been missing.</span>
             </h2>
           </FadeIn>
@@ -536,7 +537,7 @@ function Workshop() {
           <div>
             <SectionTag color="green">Behind the build</SectionTag>
             <h2 className="mt-4 font-heading text-[30px] sm:text-[48px] font-black leading-[1.1] tracking-tight text-white">
-              Built by hand.<br className="hidden sm:block" />
+              Built by hand.{" "}<br className="hidden sm:block" />
               <span className="bg-primary-gradient bg-clip-text text-transparent">Built for them.</span>
             </h2>
             <p className="mt-4 text-[15px] sm:text-[17px] leading-relaxed text-white/65">
@@ -565,7 +566,7 @@ function Workshop() {
             className="relative aspect-[9/16] sm:aspect-[4/5] w-full max-w-[360px] mx-auto overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
           >
             <video
-              src="/assets/video/workshop.mp4"
+              src={withBase("/assets/video/workshop.mp4")}
               autoPlay muted loop playsInline
               className="h-full w-full object-cover"
             />
@@ -595,7 +596,7 @@ function FounderQuote() {
           <div className="rounded-3xl border border-slate-100 bg-gradient-to-br from-white to-[#F8FAFC] p-7 sm:p-10 shadow-card">
             <div className="flex items-center gap-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/images/founder-with-dog.jpg" alt="Ashok with his dog" className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover ring-2 ring-brand-green/20" />
+              <img src={withBase("/assets/images/founder-with-dog.jpg")} alt="Ashok with his dog" className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover ring-2 ring-brand-green/20" />
               <div>
                 <div className="font-heading text-[15px] sm:text-[16px] font-extrabold text-brand-dark">{siteConfig.founder.name}</div>
                 <div className="text-[12px] sm:text-[13px] text-slate-500">{siteConfig.founder.title}</div>
@@ -789,7 +790,7 @@ function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 sm:px-8 sm:flex-row">
         <div className="flex items-center gap-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/images/logo-mark.png" alt="" className="h-7 w-7 rounded-md object-contain" />
+          <img src={withBase("/assets/images/logo-mark.png")} alt="" className="h-7 w-7 rounded-md object-contain" />
           <span className="font-heading text-[15px] font-extrabold text-white">PawMe</span>
         </div>
         <div className="flex items-center gap-5 text-[13px] font-semibold">

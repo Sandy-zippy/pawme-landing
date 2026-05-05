@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "PawMe — The AI Pet Camera That Follows Your Pet Room to Room",
   description:
     "PawMe is the world's first AI pet companion that follows your pet room to room, detects anxiety, and gives you peace of mind. Reserve VIP for $1.",
-  icons: { icon: "/favicon.png" },
+  icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/favicon.png` },
   openGraph: {
     title: "PawMe — The AI Pet Camera That Follows Your Pet Room to Room",
     description:
