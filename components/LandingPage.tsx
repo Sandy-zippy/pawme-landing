@@ -104,16 +104,18 @@ const ScribbleUnderline = ({ className = "" }: { className?: string }) => (
 function StickyNav({ onCtaClick }: { onCtaClick: () => void }) {
   return (
     <header className="fixed inset-x-0 top-0 z-40 backdrop-blur-md bg-white/85 border-b border-slate-100/80">
-      <div className="mx-auto flex h-[68px] w-full max-w-7xl items-center justify-between px-5 sm:px-8">
+      <div className="mx-auto flex h-[64px] sm:h-[68px] w-full max-w-7xl items-center justify-between px-4 sm:px-8">
         <a href="#top" className="flex items-center" aria-label="PawMe">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/images/pawme-logo.png" alt="PawMe" className="h-8 sm:h-9 w-auto select-none" />
+          <img src="/assets/images/pawme-logo.png" alt="PawMe" className="h-7 sm:h-9 w-auto select-none" />
         </a>
         <button
           onClick={onCtaClick}
           className="rounded-full bg-primary-gradient px-4 sm:px-7 py-2.5 sm:py-3 text-[12px] sm:text-[14px] font-extrabold text-white shadow-button whitespace-nowrap font-heading"
         >
-          Claim Your VIP Spot for $1
+          {/* Compact label on phones, full label from sm: up */}
+          <span className="sm:hidden">Reserve for $1</span>
+          <span className="hidden sm:inline">Claim Your VIP Spot for $1</span>
         </button>
       </div>
     </header>
@@ -133,9 +135,13 @@ function Hero({ onCtaClick }: { onCtaClick: () => void }) {
     <section id="top" ref={ref} className="relative isolate overflow-hidden bg-gradient-to-b from-white via-[#F5FBFB] to-[#EFF8F4] pt-[68px]">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(4,218,141,0.10),transparent_70%)] pointer-events-none" />
 
-      {/* Decorative stars — matched to live site exactly: 2 stars only */}
-      <StarOutline size={54} color="#8E54E9" className="absolute top-[10%] left-[25%] z-[5]" />
-      <StarOutline size={39} color="#0085FF" className="absolute top-[14%] right-[25%] z-[5]" />
+      {/* Decorative stars — render two pairs, one for mobile (smaller, tucked into corners) and one for sm:+ (full live-spec size + position). */}
+      {/* Mobile pair */}
+      <StarOutline size={32} color="#8E54E9" className="absolute top-[16%] left-[6%] z-[5] sm:hidden" />
+      <StarOutline size={24} color="#0085FF" className="absolute top-[20%] right-[6%] z-[5] sm:hidden" />
+      {/* Desktop pair (matches pawmebot.com exactly) */}
+      <StarOutline size={54} color="#8E54E9" className="absolute top-[10%] left-[25%] z-[5] hidden sm:block" />
+      <StarOutline size={39} color="#0085FF" className="absolute top-[14%] right-[25%] z-[5] hidden sm:block" />
 
       {/* Flanking bots — desktop: huge, beside; mobile: smaller, behind */}
       <motion.div
@@ -693,7 +699,7 @@ function Faq() {
 // ============================================================================
 function FinalCta({ onCtaClick }: { onCtaClick: () => void }) {
   return (
-    <section className="relative overflow-hidden bg-brand-dark py-16 sm:py-24">
+    <section id="final-cta" className="relative overflow-hidden bg-brand-dark py-16 sm:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(4,218,141,0.18)_0%,transparent_55%)]" />
       <div className="relative mx-auto max-w-3xl px-5 sm:px-8 text-center">
         <FadeIn>
@@ -743,8 +749,15 @@ function Footer() {
 function MobileStickyCta({ onCtaClick }: { onCtaClick: () => void }) {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 600);
+    const onScroll = () => {
+      const scrolledFar = window.scrollY > 600;
+      // Hide when the final dark CTA is in view so we don't double-stack two CTAs
+      const finalCta = document.getElementById("final-cta");
+      const finalInView = finalCta ? finalCta.getBoundingClientRect().top < window.innerHeight - 80 : false;
+      setShow(scrolledFar && !finalInView);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return (

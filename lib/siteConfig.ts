@@ -4,6 +4,9 @@
 export const siteConfig = {
   brand: "PawMe",
   domain: "pawmebot.com",
+  // Customer-facing outbound address — appears in the thank-you "watch your inbox" copy
+  // and in the footer so customers can whitelist it.
+  supportEmail: "pawme@ayvalabs.com",
   founder: { name: "Ashok", title: "Founder & CEO, PawMe" },
 
   vipCount: "847",

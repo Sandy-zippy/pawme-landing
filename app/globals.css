@@ -11,8 +11,8 @@
 html, body { background: #ffffff; color: var(--brand-dark); }
 body { font-family: var(--font-nunito), system-ui, sans-serif; }
 
-/* Smooth scroll */
-html { scroll-behavior: smooth; }
+/* Smooth scroll + leave room for sticky nav on anchor jumps */
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 
 /* Selection */
 ::selection { background: var(--brand-green); color: #fff; }
