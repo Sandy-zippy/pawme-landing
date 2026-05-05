@@ -145,7 +145,7 @@ export default function ThankYouClient() {
             transition={{ delay: 0.25 }}
             className="mx-auto mt-5 max-w-xl text-[15px] sm:text-[16.5px] leading-relaxed text-white/65"
           >
-            Your $1 VIP reservation is confirmed. You've locked in <span className="font-extrabold text-white">${siteConfig.pricing.vip.total}</span> ({siteConfig.pricing.vip.off} off ${siteConfig.pricing.vip.retail} retail), first-batch shipping, and a free charging dock. Here's what happens next.
+            Your $1 VIP reservation is confirmed. You've locked in the <span className="font-extrabold text-white">${siteConfig.pricing.vip.total} VIP price</span> ({siteConfig.pricing.vip.off} off ${siteConfig.pricing.vip.retail} retail), first-batch shipping, and a free charging dock. The remaining $198 is only charged when our Kickstarter goes live in Q2 2026.
           </motion.p>
         </div>
 
@@ -180,9 +180,16 @@ export default function ThankYouClient() {
               color="#FF6B6B"
             />
             <TimelineItem
-              tag="Launch day (Q4 2026)"
-              title="PawMe ships to you first"
-              body={`Your pet gets their companion before anyone else. The remaining $${siteConfig.pricing.vip.total - 1} is charged at shipping — and your $${siteConfig.pricing.vip.total} VIP price is locked in forever.`}
+              tag="Q2 2026 — Kickstarter launch"
+              title="The remaining $198 is charged"
+              body={`When our Kickstarter goes live, your remaining $${siteConfig.pricing.vip.total - 1} is charged through the campaign. Your $${siteConfig.pricing.vip.total} VIP price is locked in forever — even if regular Kickstarter pricing climbs.`}
+              icon={<BellIcon size={18} color="#04DA8D" />}
+              color="#04DA8D"
+            />
+            <TimelineItem
+              tag="Q4 2026 — Shipping"
+              title="PawMe arrives at your door"
+              body="VIPs ship before everyone else. Your pet gets their companion before regular Kickstarter backers. No additional charge at this stage."
               icon={<HeartIcon size={18} color="#3FB6E0" />}
               color="#3FB6E0"
               last
@@ -225,7 +232,7 @@ export default function ThankYouClient() {
             {[
               { k: "VIP Price", v: <><span className="font-extrabold text-brand-green">${siteConfig.pricing.vip.total}</span> <span className="text-white/40 text-[12px] ml-1">({siteConfig.pricing.vip.off} off ${siteConfig.pricing.vip.retail} retail)</span></> },
               { k: "Paid Today", v: <span className="font-extrabold text-brand-green">$1</span> },
-              { k: "Due at Shipping", v: <span className="font-extrabold text-brand-green">${siteConfig.pricing.vip.total - 1}</span> },
+              { k: "Due at Kickstarter launch (Q2 2026)", v: <span className="font-extrabold text-brand-green">${siteConfig.pricing.vip.total - 1}</span> },
               { k: "Charging Dock", v: <><span className="font-extrabold text-brand-green">Free</span> <span className="text-white/40 text-[12px] ml-1">($49 value included)</span></> },
               { k: "Shipping Priority", v: <span className="font-extrabold text-brand-green">First Batch</span> },
               { k: "Refund Policy", v: <><span className="font-extrabold text-brand-green">100% Refundable</span> <span className="text-white/40 text-[12px] ml-1">Cancel anytime</span></> },

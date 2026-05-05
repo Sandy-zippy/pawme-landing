@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence, useScroll, useTransform } from "fra
 import EmailGate from "./EmailGate";
 import LiveFeed from "./LiveFeed";
 import CountUp from "./CountUp";
+import KickstarterBar from "./KickstarterBar";
 import { siteConfig } from "@/lib/siteConfig";
 import {
   PawIcon, HeartIcon, ShieldIcon, CameraIcon, BellIcon, ClockIcon,
@@ -43,15 +44,14 @@ function SectionTag({ children, color = "green" }: { children: React.ReactNode; 
   );
 }
 
-function FadeIn({ children, delay = 0, y = 28 }: { children: React.ReactNode; delay?: number; y?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+function FadeIn({ children, delay = 0, y = 24 }: { children: React.ReactNode; delay?: number; y?: number }) {
+  // Always start visible; subtle Y/scale pop on mount so motion is preserved
+  // but content never disappears for users with reduced motion or for crawlers/screenshotters.
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0.001, y, willChange: "transform, opacity" }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
@@ -525,6 +525,66 @@ function AppMockup() {
 }
 
 // ============================================================================
+// WORKSHOP — "Built by hand" Kickstarter credibility section
+// ============================================================================
+function Workshop() {
+  return (
+    <section className="relative overflow-hidden bg-brand-dark py-16 sm:py-24">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(4,218,141,0.10)_0%,transparent_60%)]" />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-10 sm:gap-14 px-5 sm:px-8 md:grid-cols-2">
+        <FadeIn>
+          <div>
+            <SectionTag color="green">Behind the build</SectionTag>
+            <h2 className="mt-4 font-heading text-[30px] sm:text-[48px] font-black leading-[1.1] tracking-tight text-white">
+              Built by hand.<br className="hidden sm:block" />
+              <span className="bg-primary-gradient bg-clip-text text-transparent">Built for them.</span>
+            </h2>
+            <p className="mt-4 text-[15px] sm:text-[17px] leading-relaxed text-white/65">
+              Every PawMe is hand-assembled by our team — soldered, calibrated, and tested with real pets before it ever leaves the workshop. When you back our Kickstarter, you're not just pre-ordering a product. You're funding the next batch off the bench.
+            </p>
+            <ul className="mt-6 space-y-3">
+              {[
+                "200+ prototype iterations across 12 months",
+                "Vet-approved gentle-motion calibration",
+                "Tested with 200+ pets before a unit ships",
+              ].map((line, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-[14px] sm:text-[15px] text-white/80">
+                  <span className="mt-1.5 grid h-3.5 w-3.5 place-items-center rounded-full bg-brand-green/25">
+                    <CheckIcon size={9} color="#00FF94" />
+                  </span>
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <motion.div
+            whileHover={{ scale: 1.01 }}
+            className="relative aspect-[9/16] sm:aspect-[4/5] w-full max-w-[360px] mx-auto overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
+          >
+            <video
+              src="/assets/video/workshop.mp4"
+              autoPlay muted loop playsInline
+              className="h-full w-full object-cover"
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-white/85">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-red opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-red" />
+              </span>
+              Workshop · Mar 2026
+            </div>
+          </motion.div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
+
+// ============================================================================
 // FOUNDER QUOTE
 // ============================================================================
 function FounderQuote() {
@@ -535,7 +595,7 @@ function FounderQuote() {
           <div className="rounded-3xl border border-slate-100 bg-gradient-to-br from-white to-[#F8FAFC] p-7 sm:p-10 shadow-card">
             <div className="flex items-center gap-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/assets/images/founder-ashok.png" alt="Ashok" className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover" />
+              <img src="/assets/images/founder-with-dog.jpg" alt="Ashok with his dog" className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover ring-2 ring-brand-green/20" />
               <div>
                 <div className="font-heading text-[15px] sm:text-[16px] font-extrabold text-brand-dark">{siteConfig.founder.name}</div>
                 <div className="text-[12px] sm:text-[13px] text-slate-500">{siteConfig.founder.title}</div>
@@ -669,12 +729,12 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 function Faq() {
   const items = [
     { q: "What exactly is PawMe?", a: "PawMe is an AI-powered robotic pet companion that autonomously follows your pet from room to room. It uses advanced sensors and machine learning to track their behavior, detect anxiety, monitor health patterns, and provide comfort through interactive features — all controllable from your phone." },
-    { q: "How does the $1 reservation work?", a: "You pay just $1 today to secure your spot and lock in your discounted price. When PawMe ships, you'll pay the remaining balance. If you change your mind at any point before shipping, you get a full refund of your $1 deposit. Zero risk." },
+    { q: "How does the $1 reservation work?", a: "You pay just $1 today to lock in your VIP price ($199 vs $399 retail). When our Kickstarter campaign goes live in Q2 2026, the remaining $198 is charged through the campaign — that's where you officially become a backer. PawMe then ships to VIPs first in Q4 2026. If you change your mind any time before the Kickstarter charges, you get a full refund of your $1 deposit. Zero risk." },
     { q: "Is it safe for my pet?", a: "Absolutely. PawMe is designed with pet safety as the #1 priority. It uses gentle, slow movements, soft-touch materials, and advanced obstacle detection. It's been tested with over 200 pets during development and is vet-approved." },
     { q: "Will it work in my home?", a: "PawMe works in any home with flat flooring. It navigates doorways, hallways, and open floor plans seamlessly. During setup, it maps your home automatically and learns the optimal routes to follow your pet." },
     { q: "What if my pet is scared of it?", a: "Most pets are curious, not scared. PawMe has a gradual introduction mode that lets your pet approach and investigate at their own pace. 94% of pets in our testing program were comfortable with PawMe within 48 hours." },
-    { q: "When does PawMe ship?", a: "We're targeting our Kickstarter launch in Q2 2026 with first units shipping in Q4 2026. VIP reservation holders get priority shipping — meaning you'll be among the very first to receive PawMe." },
-    { q: "Can I get a refund?", a: "Yes. Your $1 deposit is 100% refundable at any time before shipping. No questions asked, no hoops to jump through. We want you to feel completely comfortable." },
+    { q: "When does PawMe ship?", a: "We're targeting our Kickstarter launch in Q2 2026 with first units shipping in Q4 2026. VIP reservation holders get priority shipping — meaning you'll be among the very first to receive PawMe, before any other Kickstarter backer." },
+    { q: "Can I get a refund?", a: "Yes. Your $1 deposit is 100% refundable any time before the Kickstarter campaign charges. No questions asked, no hoops to jump through. We want you to feel completely comfortable." },
   ];
   return (
     <section className="bg-white py-16 sm:py-24">
@@ -792,6 +852,7 @@ export default function LandingPage() {
     <main className="min-h-screen bg-white text-brand-dark">
       <StickyNav onCtaClick={open} />
       <Hero onCtaClick={open} />
+      <KickstarterBar />
       <MeetPawMe />
       <Problem />
       <MidCta onCtaClick={open} />
@@ -800,6 +861,7 @@ export default function LandingPage() {
       <StatsBar />
       <Comparison />
       <AppMockup />
+      <Workshop />
       <FounderQuote />
       <Pricing onCtaClick={open} />
       <Faq />

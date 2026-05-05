@@ -111,7 +111,7 @@ export default function EmailGate({ isOpen, onClose }: Props) {
               Lock in 50% off for just $1.
             </h3>
             <p className="mt-2 text-[15px] leading-relaxed text-slate-600">
-              We'll send your VIP receipt and shipping updates to your email. Pay just <span className="font-bold text-brand-dark">$1 today</span>, the remaining $198 when PawMe ships. 100% refundable.
+              We'll send your VIP receipt and updates to your email. Pay just <span className="font-bold text-brand-dark">$1 today</span>, the remaining $198 only when our Kickstarter campaign launches in Q2 2026. 100% refundable.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-5 space-y-3">
