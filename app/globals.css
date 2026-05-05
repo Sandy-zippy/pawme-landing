@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-green: #04DA8D;
+  --brand-blue: #0085FF;
+  --brand-dark: #0E1E2E;
+}
+
+html, body { background: #ffffff; color: var(--brand-dark); }
+body { font-family: var(--font-nunito), system-ui, sans-serif; }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Selection */
+::selection { background: var(--brand-green); color: #fff; }
