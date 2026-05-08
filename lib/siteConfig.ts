@@ -22,19 +22,14 @@ export const siteConfig = {
     retail: { label: "Retail", price: 399 },
   },
 
-  social: {
-    instagram: "https://instagram.com/pawmebot",
-    tiktok: "https://tiktok.com/@pawmebot",
-    facebook: "https://facebook.com/pawmebot",
-  },
-
   // Tracking IDs — populated at build via NEXT_PUBLIC_* env vars.
-  // GHL inbound webhook is also a public URL by design (it's a generic intake endpoint).
   tracking: {
-    clarityProjectId: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "",
-    metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "",
+    clarityProjectId: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "wmeree76xu",
+    metaPixelId: process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "1957428058474676",
     gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "",
   },
 
-  ghlInboundWebhookUrl: process.env.NEXT_PUBLIC_GHL_INBOUND_WEBHOOK_URL ?? "",
+  // n8n webhook — handles both Lead and Purchase via event_name in payload.
+  // Public by design (anti-spam handled inside the n8n workflow).
+  eventsWebhookUrl: process.env.NEXT_PUBLIC_EVENTS_WEBHOOK_URL ?? "https://sandyautomations.app.n8n.cloud/webhook/pawme-events",
 };

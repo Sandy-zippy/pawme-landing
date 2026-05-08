@@ -6,6 +6,7 @@ import { CheckIcon, BrainIcon, CameraIcon, BellIcon, HeartIcon } from "./icons";
 import { siteConfig } from "@/lib/siteConfig";
 import { withBase } from "@/lib/withBase";
 import { trackPurchase } from "./Tracking";
+import { generateEventId, readFbp, readFbc, readUtm } from "@/lib/eventId";
 
 const CrownIcon = ({ size = 14, color = "#04DA8D" }: { size?: number; color?: string }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
@@ -77,26 +78,32 @@ export default function ThankYouClient() {
     const params = new URLSearchParams(window.location.search);
     const sessionId = params.get("session_id") || "";
 
-    if (email && siteConfig.ghlInboundWebhookUrl) {
+    const purchaseEventId = generateEventId("Purchase");
+
+    if (email && siteConfig.eventsWebhookUrl) {
       try {
-        let utm = {};
-        try { utm = JSON.parse(localStorage.getItem("pawme_utm") || "{}"); } catch {}
-        fetch(siteConfig.ghlInboundWebhookUrl, {
+        const utm = readUtm();
+        fetch(siteConfig.eventsWebhookUrl, {
           method: "POST",
-          mode: "no-cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            event_name: "Purchase",
+            event_id: purchaseEventId,
             first_name: name, email,
             stage: "purchased", source: "pawmebot.com",
             page_url: window.location.href, session_id: sessionId,
-            ...utm, timestamp: new Date().toISOString(),
+            user_agent: navigator.userAgent,
+            fbp: readFbp(),
+            fbc: readFbc(),
+            ...utm,
+            timestamp: new Date().toISOString(),
           }),
           keepalive: true,
         });
       } catch {}
     }
 
-    trackPurchase({ email, sessionId });
+    trackPurchase({ email, sessionId, eventID: purchaseEventId });
   }, []);
 
   return (

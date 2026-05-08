@@ -787,16 +787,11 @@ function FinalCta({ onCtaClick }: { onCtaClick: () => void }) {
 function Footer() {
   return (
     <footer className="bg-brand-dark py-8 sm:py-10 text-white/60 pb-[88px] sm:pb-10">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 sm:px-8 sm:flex-row">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 sm:px-8 sm:flex-row">
         <div className="flex items-center gap-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={withBase("/assets/images/logo-mark.png")} alt="" className="h-7 w-7 rounded-md object-contain" />
           <span className="font-heading text-[15px] font-extrabold text-white">PawMe</span>
-        </div>
-        <div className="flex items-center gap-5 text-[13px] font-semibold">
-          <a href={siteConfig.social.instagram} target="_blank" rel="noreferrer" className="hover:text-white">Instagram</a>
-          <a href={siteConfig.social.tiktok} target="_blank" rel="noreferrer" className="hover:text-white">TikTok</a>
-          <a href={siteConfig.social.facebook} target="_blank" rel="noreferrer" className="hover:text-white">Facebook</a>
         </div>
         <div className="text-[12px]">© 2026 PawMe. All rights reserved.</div>
       </div>

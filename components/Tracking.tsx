@@ -55,15 +55,15 @@ function Ga4() {
   );
 }
 
-/** Public helpers callable from anywhere */
-export function trackLead(payload: { email: string; firstName?: string }) {
-  try { window.fbq?.("track", "Lead", { content_name: "PawMe VIP", value: 1, currency: "USD" }); } catch {}
+/** Public helpers callable from anywhere — pass eventID for browser↔CAPI dedup. */
+export function trackLead(payload: { email: string; firstName?: string; eventID?: string }) {
+  try { window.fbq?.("track", "Lead", { content_name: "PawMe VIP", value: 1, currency: "USD" }, payload.eventID ? { eventID: payload.eventID } : undefined); } catch {}
   try { window.gtag?.("event", "generate_lead", { value: 1, currency: "USD", email: payload.email }); } catch {}
   try { window.clarity?.("set", "lead", "1"); } catch {}
 }
 
-export function trackPurchase(payload: { email?: string; sessionId?: string }) {
-  try { window.fbq?.("track", "Purchase", { value: 1, currency: "USD" }); } catch {}
+export function trackPurchase(payload: { email?: string; sessionId?: string; eventID?: string }) {
+  try { window.fbq?.("track", "Purchase", { value: 1, currency: "USD" }, payload.eventID ? { eventID: payload.eventID } : undefined); } catch {}
   try { window.gtag?.("event", "purchase", { transaction_id: payload.sessionId || "stripe_link", value: 1, currency: "USD" }); } catch {}
   try { window.clarity?.("set", "purchaser", "1"); } catch {}
 }

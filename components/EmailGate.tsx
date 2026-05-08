@@ -4,17 +4,12 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/lib/siteConfig";
 import { trackLead } from "./Tracking";
+import { generateEventId, readFbp, readFbc, readUtm } from "@/lib/eventId";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
 };
-
-function captureUtm(): Record<string, string> {
-  try {
-    return JSON.parse(localStorage.getItem("pawme_utm") || "{}");
-  } catch { return {}; }
-}
 
 export default function EmailGate({ isOpen, onClose }: Props) {
   const [firstName, setFirstName] = useState("");
@@ -42,38 +37,49 @@ export default function EmailGate({ isOpen, onClose }: Props) {
     }
     setSubmitting(true);
 
-    const utm = captureUtm();
+    const eventId = generateEventId("Lead");
+    const fbp = readFbp();
+    const fbc = readFbc();
+    const utm = readUtm();
+
     const payload = {
+      event_name: "Lead",
+      event_id: eventId,
       first_name: firstName,
       email,
       stage: "lp_email_gate",
       source: "pawmebot.com",
       page_url: typeof window !== "undefined" ? window.location.href : "",
       referrer: typeof document !== "undefined" ? document.referrer : "",
+      user_agent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+      fbp,
+      fbc,
       ...utm,
       timestamp: new Date().toISOString(),
     };
 
-    // Persist for thank-you tagging
+    // Persist for thank-you matching + dedup
     try {
-      localStorage.setItem("pawme_user", JSON.stringify({ first_name: firstName, email, ts: Date.now() }));
+      localStorage.setItem("pawme_user", JSON.stringify({
+        first_name: firstName, email, lead_event_id: eventId, ts: Date.now(),
+      }));
     } catch {}
 
-    // Fire pixels (Lead event for Meta + GA + Clarity)
-    trackLead({ email, firstName });
+    // Browser pixel — same eventID as the server CAPI fires for dedup
+    trackLead({ email, firstName, eventID: eventId });
 
-    // Post directly to GHL inbound webhook (no-cors so we don't see the response,
-    // but the data reaches GHL — this is by design for inbound webhooks).
-    if (siteConfig.ghlInboundWebhookUrl) {
+    // Server-side: n8n webhook fans out to Meta CAPI + KIT
+    if (siteConfig.eventsWebhookUrl) {
       try {
-        await fetch(siteConfig.ghlInboundWebhookUrl, {
+        await fetch(siteConfig.eventsWebhookUrl, {
           method: "POST",
-          mode: "no-cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
           keepalive: true,
         });
-      } catch {}
+      } catch {
+        // Non-blocking — Stripe redirect is the priority
+      }
     }
 
     // Build Stripe URL with prefilled email + reference
