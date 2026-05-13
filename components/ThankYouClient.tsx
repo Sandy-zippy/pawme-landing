@@ -77,10 +77,17 @@ export default function ThankYouClient() {
 
     const params = new URLSearchParams(window.location.search);
     const sessionId = params.get("session_id") || "";
+    // Stripe Payment Links can also pass customer_email in the redirect when configured
+    const emailFromUrl = params.get("customer_email") || params.get("email") || "";
+    if (!email && emailFromUrl) email = emailFromUrl;
 
     const purchaseEventId = generateEventId("Purchase");
 
-    if (email && siteConfig.eventsWebhookUrl) {
+    // Always fire server-side Purchase. Even without an email in localStorage,
+    // fbp/fbc cookies + IP + user-agent are sufficient match params for Meta CAPI
+    // to attribute the event. (Mobile localStorage often gets wiped when bouncing
+    // through buy.stripe.com — gating on email silently dropped most mobile purchases.)
+    if (siteConfig.eventsWebhookUrl) {
       try {
         const utm = readUtm();
         fetch(siteConfig.eventsWebhookUrl, {
@@ -89,12 +96,18 @@ export default function ThankYouClient() {
           body: JSON.stringify({
             event_name: "Purchase",
             event_id: purchaseEventId,
-            first_name: name, email,
-            stage: "purchased", source: "pawmebot.com",
-            page_url: window.location.href, session_id: sessionId,
+            first_name: name,
+            email,
+            has_email: Boolean(email),
+            stage: "purchased",
+            source: "pawmebot.com",
+            page_url: window.location.href,
+            session_id: sessionId,
             user_agent: navigator.userAgent,
             fbp: readFbp(),
             fbc: readFbc(),
+            value: 1,
+            currency: "USD",
             ...utm,
             timestamp: new Date().toISOString(),
           }),
